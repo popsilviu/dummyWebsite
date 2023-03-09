@@ -1,0 +1,9 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+article {
+    box-shadow: 3px 3px 3px 3px grey;
+}
