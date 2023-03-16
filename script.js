@@ -3,8 +3,11 @@ async function getData() {
   return data.json();
 }
 
+
+
 getData().then((products) => {
   if (products) {
+    console.log("Lista cu produce: ", products);
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
@@ -84,6 +87,27 @@ getData().then((products) => {
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
 
       productsList.appendChild(newArticle);
+
+      function createModal(id) {
+        // Product 
+
+        const product = products.filter(product => product.id == id); 
+
+        const modal = document.createElement('div');
+        const titleModal = document.createElement('h1');
+        const exitBtn = document.createElement('button'); 
+        const price = document.createElement('span');
+        const modalImage = document.createElement('div');
+      
+        modal.classList.add('modalProduct');
+        modalImage.classList.add('modalImage');
+      
+      
+        modalImage.append(newImage)
+        
+      
+      }
     });
   }
 });
+
