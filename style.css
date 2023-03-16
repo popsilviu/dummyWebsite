@@ -1,88 +1,107 @@
-h1 {
-  text-align: center;
+* {
+  border-collapse: inherit;
+  box-sizing: border-box;
 }
-
-.products-container {
+body {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 4px;
+  background-color: bisque;
 }
-
 article {
+  margin-left: 6px;
+  max-width: 96%;
+  border-radius: 0.5rem;
   box-shadow: 3px 3px 3px 3px grey;
-  border-radius: 20px;
+  background-color: lightgray;
+  border: 1px solid black;}
+
+ 
+/* body {
+  max-width: 100%;
+  gap: 10px;
+  
+} */
+.newPriceBoxSection {
+  font-weight: 500 ;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
 }
 
-.products-container article:hover {
-  box-shadow: 0 0 20px black; 
-  }  
+.newPriceBoxSection :first-child {
 
-.image-container {
-  position: relative;
-  margin: 10px;
+  display: inline;
+  margin-left: 10px;
+  }
+ 
+.newPriceBoxSection > p:nth-child(2) {
+  background-color: navy;
+  color: whitesmoke;
+  display: inline;
+  margin-left: 1px;
+  padding: 1px;
+  border-radius: 5px;
+  border: 3px solid, black;
 }
+
+.newPriceBoxSection > p:nth-child(4) {
+  color:white;
+  border-radius: 5px;
+  padding: 2px 2px;
+  margin-left: 8px;
+  background-color: red;
+  display: inline;
+  font-weight: bold;
+}
+
+.newPriceBoxSection > p:nth-child(5) {
+  margin-left: 10px;
+}
+.newPriceBoxSection > p:nth-child(6) {
+  background-image: url();
+  margin-left: 10px;
+}
+
 
 img {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  border-radius: 10px;
+  border-radius: 0.5rem 0.5rem 0 0;
+  width:100%;
 }
 
-.prev-btn {
-  position: absolute;
-  top: 50%;
-  left: 10px;
 
-  border: none;
-  background-color: transparent;
-  border-radius: 50%;
+*/
+.newImageSection > a {
+  cursor: pointer;
+  background-color: gray;
+  margin-top: calc(height/2);
+  width: auto;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 0 3px 3px 0;
+  user-select: none; }
 
-  padding: 5px;
-  width: 40px;
-
-  color: lightgray;
-  font-size: 1.5rem;
+/* AICIA O SA PUI BUTOANELE PESTE IMAGES */
+a {
+  background-color: gray;
+  color: whitesmoke;
+}
+a:first-child {
+  padding: 2rem;
+  background-color: gray;
+  color: white;
+  float: left;
+}
+a:last-child {
+  float: right;
 }
 
-.next-btn {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-
-  border: none;
-  background-color: transparent;
-  border-radius: 50%;
-
-  padding: 5px;
-  width: 40px;
-
-  color: lightgray;
-  font-size: 1.5rem;
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-  background-color: rgba(230, 230, 230, 0.5);
-}
-
-.text-container {
+/* .newImageSection > a:last-child {
   display: flex;
-  flex-direction: column;
-
-  height: 150px;
-
+  justify-content: flex-end;
   align-items: center;
-  margin: 10px;
-}
-
-.price-container {
-  display: flex;
-  justify-content: space-around;
-
-  margin: 10px;
-}
-
-p {
-  text-align: center;
-}
+} */
+/*
+.imageSlider {
+  height:fit-content;
+} */
