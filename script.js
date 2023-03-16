@@ -1,89 +1,86 @@
+
+
 async function getData() {
-  let data = await fetch('http://localhost:3000/products');
+  let data = await fetch("http://localhost:3000/products");
   return data.json();
+}
+
+function createImg(src) {
+  const img = document.createElement('img');
+  img.src = src;
+  return img;
 }
 
 getData().then((products) => {
   if (products) {
     products.forEach((product) => {
-      function createElement(tag, text) {
+
+      function createElement(tag, text, style) {
         const tagElement = document.createElement(tag);
         tagElement.innerText = text;
+
+        if (style) 
+        {
+        tagElement.style = style
+        }
         return tagElement;
       }
 
-      function calculateDiscountedPrice() {
-        return (
-          ((100 - product.discountPercentage) / 100) *
-          product.price
-        ).toFixed(2);
-      }
-
       console.log(product);
-      const productsList = document.querySelector('.products-container');
-      const newArticle = document.createElement('article');
-      const newImageSection = document.createElement('section');
-      const newTextSection = document.createElement('section');
-      const newPriceBoxSection = document.createElement('section');
+      const newArticle = document.createElement("article");
+      const newImageSection = document.createElement("section");
+      
+      const newTextSection = document.createElement("section");
+      const newPriceBoxSection = document.createElement("section");
 
-      newArticle.setAttribute('id', product.id);
-      newImageSection.classList.add('image-container');
-      newTextSection.classList.add('text-container');
-      newPriceBoxSection.classList.add('price-container');
+      const mySlides = document.createElement('div');
+      const imageSlider = document.createElement('div');
 
-      const newImage = document.createElement('img');
-      const prevButton = document.createElement('button');
-      const nextButton = document.createElement('button');
-
-      let imageIndex = 0;
-      newImage.src = product.images[imageIndex];
-      prevButton.innerText = '<';
-      nextButton.innerText = '>';
-
-      prevButton.classList.add('prev-btn');
-      nextButton.classList.add('next-btn');
-
-      prevButton.addEventListener('click', previousImage);
-      nextButton.addEventListener('click', nextImage);
-
-      function previousImage() {
-        if (imageIndex === 0) {
-          prevButton.disabled = true;
-        } else {
-          imageIndex -= 1;
-          newImage.src = product.images[imageIndex];
-          nextButton.disabled = false;
-        }
-      }
-
-      function nextImage() {
-        if (imageIndex === product.images.length - 1) {
-          nextButton.disabled = true;
-        } else {
-          imageIndex += 1;
-          newImage.src = product.images[imageIndex];
-          prevButton.disabled = false;
-        }
-      }
-
-      newImageSection.append(newImage, prevButton, nextButton);
-
-      newTextSection.append(
-        createElement('h2', product.title),
-        createElement('p', product.description)
-      );
-
-      newPriceBoxSection.append(
-        createElement('p', `Price: ${product.price}`),
-        createElement('p', `Discount: ${product.discountPercentage}`),
-        createElement('p', `Discount price: ${calculateDiscountedPrice()}`),
-        createElement('p', `Stock: ${product.stock}`),
-        createElement('p', `Rating: ${product.rating}`)
-      );
+      newImageSection.setAttribute('id' , product.id);
+      imageSlider.setAttribute('class' , 'imageSlider');
+      mySlides.setAttribute('class', 'mySlides');
 
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
+      newImageSection.classList.add('newImageSection')
 
-      productsList.appendChild(newArticle);
+      newImageSection.appendChild(imageSlider)
+      imageSlider.appendChild(mySlides)
+
+      newImageSection.append(
+        createElement('a' , "PREV"),
+        createElement('a' , "NEXT")
+      )
+    
+      for (let i = 0; i < product.images.length; i += 1) {
+        imageSlider.append(createImg(product.images[i]));
+          }
+
+
+      // for (let i = 0; i < product.images.length; i += 1) {
+      //   newImageSection.append(createImg(product.images[i]));
+      // }
+
+      newTextSection.append(
+        createElement("h2", product.title),
+        createElement("p", product.description)
+      );
+      newPriceBoxSection.append(
+        createElement("p", "Price:  " + product.price + "$", 'text-decoration: line-through'),
+        createElement("p", "-" + product.discountPercentage + "%"),
+        createElement('p', " "),
+        createElement('p', "New Price: " + (product.price - (product.price * product.discountPercentage / 100 )).toFixed(2) + " $"),
+        createElement("p", "In stock: " + product.stock),
+        createElement("p", "Rating: " + product.rating)
+      );
+
+      
+      
+      newPriceBoxSection.classList.add('newPriceBoxSection');
+      document.body.appendChild(newArticle);
+      
+      
+
+    
     });
   }
 });
