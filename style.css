@@ -86,3 +86,24 @@ img {
 p {
   text-align: center;
 }
+
+.modalProduct {
+  width: 50%;
+  margin: auto;
+  display: block;
+  position: fixed;
+  /* top: 50%;
+  left: 50%; === vrem sa vedem ce se intampla daca  */
+
+}
+
+.modalProduct button {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
+  border-radius: 5px;
+  border: solid 1px;
+  background-color: red;
+  color: white;
+}
+
