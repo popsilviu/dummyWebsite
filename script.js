@@ -34,6 +34,7 @@ getData().then((products) => {
       const newImage = document.createElement('img');
       const prevButton = document.createElement('button');
       const nextButton = document.createElement('button');
+      const dotContainer = document.createElement('div');
 
       let imageIndex = 0;
       newImage.src = product.images[imageIndex];
@@ -42,9 +43,27 @@ getData().then((products) => {
 
       prevButton.classList.add('prev-btn');
       nextButton.classList.add('next-btn');
+      dotContainer.classList.add('dot-container');
 
       prevButton.addEventListener('click', previousImage);
       nextButton.addEventListener('click', nextImage);
+      createDotsForImages();
+
+      let dotArr = Array.from(dotContainer.childNodes);
+      dotArr[0].classList.add('active');
+
+      function createDotsForImages() {
+        for (let i = 0; i < product.images.length; i++) {
+          const dot = document.createElement('span');
+          dot.classList.add('dot');
+          dotContainer.append(dot);
+          dot.addEventListener('click', () => {
+            newImage.src = product.images[i];
+            dotArr.forEach((elem) => elem.classList.remove('active'));
+            dotArr[i].classList.add('active');
+          });
+        }
+      }
 
       function previousImage() {
         if (imageIndex === 0) {
@@ -52,7 +71,9 @@ getData().then((products) => {
         } else {
           imageIndex -= 1;
           newImage.src = product.images[imageIndex];
+          dotArr[imageIndex].classList.add('active');
           nextButton.disabled = false;
+          dotArr[imageIndex + 1].classList.remove('active');
         }
       }
 
@@ -62,11 +83,13 @@ getData().then((products) => {
         } else {
           imageIndex += 1;
           newImage.src = product.images[imageIndex];
+          dotArr[imageIndex].classList.add('active');
           prevButton.disabled = false;
+          dotArr[imageIndex - 1].classList.remove('active');
         }
       }
 
-      newImageSection.append(newImage, prevButton, nextButton);
+      newImageSection.append(newImage, prevButton, nextButton, dotContainer);
 
       newTextSection.append(
         createElement('h2', product.title),
