@@ -1,3 +1,14 @@
+const navbar = document.querySelector(".navbar");
+const cartIcon = document.createElement("div");
+cartIcon.setAttribute("id", "cart-nav-icon-container");
+navbar.appendChild(cartIcon);
+cartIcon.innerHTML = `<img id='cart-nav-icon' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
+const dotNotification = document.createElement("button");
+dotNotification.setAttribute("class", "dot-notification");
+dotNotification.append(`1`);
+cartIcon.appendChild(dotNotification);
+
+
 async function getData() {
   let data = await fetch('http://localhost:3000/products');
   return data.json();
@@ -26,16 +37,16 @@ getData().then((products) => {
       const newTextSection = document.createElement('section');
       const newPriceBoxSection = document.createElement('section');
       const newBuySection=document.createElement('section');
-      const modal=document.createElement('section');
-      const modalContent=document.createElement('section');
+      // const modal=document.createElement('section');
+      // const modalContent=document.createElement('section');
 
       newArticle.setAttribute('id', product.id);
       newImageSection.classList.add('image-container');
       newTextSection.classList.add('text-container');
       newPriceBoxSection.classList.add('price-container');
       newBuySection.classList.add('buy-container');
-      modal.classList.add('myModal');
-      modalContent.classList.add('modal-content');
+      // modal.classList.add('myModal');
+      // modalContent.classList.add('modal-content');
       
 
       const newImage = document.createElement('img');
@@ -75,74 +86,78 @@ getData().then((products) => {
 
       newImageSection.append(newImage, prevButton, nextButton);
 
-      const buyButton=document.createElement('button');
+
+      
+      // Alexandra!!!!!!!!!//
+
+      // const buyButton=document.createElement('button');
       const addToCart=document.createElement('button');
-      buyButton.innerHTML="Buy";
+      // buyButton.innerHTML="Buy";
       addToCart.innerHTML="Add to Cart";
-      buyButton.classList.add('buy-btn');
+      // buyButton.classList.add('buy-btn');
       addToCart.classList.add('add-btn');
 
       
-      const closeButton=document.createElement("button");
-      closeButton.classList.add('close-btn');
+    //   const closeButton=document.createElement("button");
+    //   closeButton.classList.add('close-btn');
       
-      closeButton.innerHTML='&times;';
-      modal.append(closeButton);
+    //   closeButton.innerHTML='&times;';
+    //   modal.append(closeButton);
       
-      buyButton.onclick = function() {
-        modal.style.display = "block";
-      }
-      addToCart.onclick = function() {
-        modal.style.display = "block";
-        updateProductsToArray(prodToCart);
-        updateProductsToShoppingCart();
-      }
+    //   buyButton.onclick = function() {
+    //     modal.style.display = "block";
+    //   }
+    //   addToCart.onclick = function() {
+    //     modal.style.display = "block";
+    //     updateProductsToArray(prodToCart);
+    //     updateProductsToShoppingCart();
+    //   }
       
-      closeButton.onclick = function() {
-        modal.style.display = "none";
-      }
+    //   closeButton.onclick = function() {
+    //     modal.style.display = "none";
+    //   }
 
-     let productsInCart=[];
-     let cartSumPrice="Suma totala:";
-     let prodToCart={
-      name:product.title,
-      id: product.id,
-      image:product.newImage,
-      count:1,
-      price: product.calculateDiscountedPrice,
-      unitPrice: product.calculateDiscountedPrice
+    //  let productsInCart=[];
+    //  let cartSumPrice="Suma totala:";
+    //  let prodToCart={
+    //   name:product.title,
+    //   id: product.id,
+    //   image:product.newImage,
+    //   count:1,
+    //   price: product.calculateDiscountedPrice,
+    //   unitPrice: product.calculateDiscountedPrice
 
-     }
+    //  }
 
-     function updateProductsToArray(product){
-      for (let i=0; i<productsInCart.length; i++){
-        if(productsInCart[i].id ===product.id){
-          productsInCart[i].count+=1;
-          productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
-          return;
-        }
-      }
-      productsInCart.push(product);
-    }
+    //  function updateProductsToArray(product){
+    //   for (let i=0; i<productsInCart.length; i++){
+    //     if(productsInCart[i].id ===product.id){
+    //       productsInCart[i].count+=1;
+    //       productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
+    //       return;
+    //     }
+    //   }
+    //   productsInCart.push(product);
+    // }
 
-     function updateProductsToShoppingCart(){
-      if(productsInCart.length>0){
-        //to complete    
+    //  function updateProductsToShoppingCart(){
+    //   if(productsInCart.length>0){
+    //     //to complete    
                     
           
-        }
+    //     }
 
       
-      else {
-        document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
-        cartSumPrice.innerHTML+="0";
-      }
-     }
+    //   else {
+    //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
+    //     cartSumPrice.innerHTML+="0";
+    //   }
+    //  }
      
      
      
            
-      newBuySection.append(buyButton,addToCart);
+      newBuySection.append(addToCart);
      
 
 
@@ -159,9 +174,14 @@ getData().then((products) => {
         createElement('p', `Rating: ${product.rating}`)
       );
 
-      newArticle.append(newImageSection, newTextSection, newPriceBoxSection, newBuySection, modal);
-
+      newArticle.append(newImageSection, newTextSection, newPriceBoxSection); // am scos , newBuySection, modal - create de alexandra
       productsList.appendChild(newArticle);
+
+            // Adaugate acum de Nicu
+            const cartButton = document.createElement("div");
+            cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
+            cartButton.setAttribute("id", "cart-button-container");
+            newArticle.appendChild(cartButton);
 
       
     });
