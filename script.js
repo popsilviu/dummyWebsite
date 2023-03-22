@@ -3,23 +3,14 @@ async function getData() {
   return data.json();
 }
 
-
-
 getData().then((products) => {
   if (products) {
-    console.log("Lista cu produce: ", products);
+    console.log('Lista cu produce: ', products);
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
         tagElement.innerText = text;
         return tagElement;
-      }
-
-      function calculateDiscountedPrice() {
-        return (
-          ((100 - product.discountPercentage) / 100) *
-          product.price
-        ).toFixed(2);
       }
 
       console.log(product);
@@ -107,30 +98,52 @@ getData().then((products) => {
         createElement('p', `Rating: ${product.rating}`)
       );
 
+      // Punctul 7 din lista de task-uri
+
+      const detailsArr = Array.from(newPriceBoxSection.childNodes);
+
+      // function calculateDiscountedPrice() {
+      //   if (!product.discountPercentage) {
+      //     detailsArr[2].style.display = 'none';
+
+      //     return;
+      //   } else {
+      //     detailsArr[0].classList.add('price');
+
+      //     return (
+      //       ((100 - product.discountPercentage) / 100) *
+      //       product.price
+      //     ).toFixed(2);
+      //   }
+      // }
+
+      function calculateDiscountedPrice() {
+        return (
+          ((100 - product.discountPercentage) / 100) *
+          product.price
+        ).toFixed(2);
+      }
+
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
 
       productsList.appendChild(newArticle);
 
       function createModal(id) {
-        // Product 
+        // Product
 
-        const product = products.filter(product => product.id == id); 
+        const product = products.filter((product) => product.id == id);
 
         const modal = document.createElement('div');
         const titleModal = document.createElement('h1');
-        const exitBtn = document.createElement('button'); 
+        const exitBtn = document.createElement('button');
         const price = document.createElement('span');
         const modalImage = document.createElement('div');
-      
+
         modal.classList.add('modalProduct');
         modalImage.classList.add('modalImage');
-      
-      
-        modalImage.append(newImage)
-        
-      
+
+        modalImage.append(newImage);
       }
     });
   }
 });
-
