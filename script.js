@@ -232,11 +232,11 @@ getData().then((products) => {
          }
          productsInCart.push(prodToCart);
          
-        updateProductsToShoppingCart(prodToCart.count);
+       // updateProductsToShoppingCart();
        }
        
-        let updateProductsToShoppingCart = (count)=>{
-         
+        let updateProductsToShoppingCart = ()=>{
+         cartWrapper.append(productsInCart.innerHTML);
 
           }
 
@@ -271,7 +271,7 @@ getData().then((products) => {
       cartButton.onclick = function() {
         updateProductsToArray(prodToCart);
         console.log(productsInCart);
-   //     updateProductsToShoppingCart();
+        updateProductsToShoppingCart();
       }
       
 
