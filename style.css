@@ -1,3 +1,7 @@
+* {
+  margin: 0 auto;
+}
+
 h1 {
   text-align: center;
 }
@@ -178,6 +182,8 @@ p {
 
 /*Cart icon of navigation bar*/
 .navbar {
+  position: fixed;
+  z-index: 4;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -191,14 +197,14 @@ p {
   height: 70px;
   display: flex;
   align-items: center;
-  position: relative;
+  position: fixed;
   margin: 0;
 
 }
 
 #cart-nav-icon {
   z-index: 1;
-  position: absolute;
+  position: fixed;
   height: auto;
   width: 40px;
   object-fit: contain;
@@ -216,4 +222,51 @@ p {
   border: solid 1px;
   background-color: red;
   border-radius: 50%;
+}
+
+
+/* Style cart window */
+
+.cart-window-container{
+  z-index: 5;
+  border: solid lightgray 1px;
+  border-top:none;
+  position: fixed;
+  top:12vh;
+  background-color: #fff;
+  margin-right:2%;
+  right: 0px;
+  top: 70px;
+}
+
+.hide{
+  display: none;
+}
+
+.cart-wrapper{
+  overflow-y: auto;
+  max-height: 350px;
+  width:24vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.total{
+  text-align: right;
+  padding:5%;
+}
+.checkout, .view-cart{
+  width:95%;
+  text-align: center;
+  cursor: pointer;
+  background-color: brown;
+  font-size: large;
+  color: #fff;
+  margin:10px auto;
+  padding:10px 15px;
+}
+.view-cart{
+  background-color: #fff;
+  border: 2px solid brown;
+  color: brown;
 }
