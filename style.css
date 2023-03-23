@@ -1,12 +1,14 @@
 * {
   margin: 0 auto;
+  
 }
 
-h1 {
+h1 {  
   text-align: center;
 }
 
 .products-container {
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 20px;
@@ -96,17 +98,18 @@ p {
 
 .buy-btn, .add-btn{
   
-  display: inline-block;
+  float:right;
   outline: 0;
   border: 0;
   cursor: pointer;
-  background-color: #4299e1;
+  margin: auto;
+  /*background-color: #4299e1;*/
   border-radius: 8px;
-  padding: 8px 16px;
+  /*padding: 8px 16px;
   font-size: 16px;
   font-weight: 700;
-  color: white;
-  line-height: 26px;
+  /*color: white;
+  line-height: 26px; */
 
 }
 
@@ -182,6 +185,7 @@ p {
 
 /*Cart icon of navigation bar*/
 .navbar {
+ 
   position: fixed;
   z-index: 4;
   display: flex;

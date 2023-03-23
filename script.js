@@ -209,43 +209,43 @@ getData().then((products) => {
       //     modal.style.display = "none";
       //   }
 
-      //  let productsInCart=[];
-      //  let cartSumPrice="Suma totala:";
-      //  let prodToCart={
-      //   name:product.title,
-      //   id: product.id,
-      //   image:product.newImage,
-      //   count:1,
-      //   price: product.calculateDiscountedPrice,
-      //   unitPrice: product.calculateDiscountedPrice
+        var productsInCart=[];
+        let cartSumPrice="Suma totala:";
+        let prodToCart={
+        name:product.title,
+         id: product.id,
+         image:product.newImage,
+         count:1,
+         price: product.calculateDiscountedPrice,
+         unitPrice: product.calculateDiscountedPrice
 
-      //  }
+        }
 
-      //  function updateProductsToArray(product){
-      //   for (let i=0; i<productsInCart.length; i++){
-      //     if(productsInCart[i].id ===product.id){
-      //       productsInCart[i].count+=1;
-      //       productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
-      //       return;
-      //     }
-      //   }
-      //   productsInCart.push(product);
-      // }
+        function updateProductsToArray(product){
+         for (let i=0; i<productsInCart.length; i++){
+           if(productsInCart[i].id ===product.id){
+             productsInCart[i].count+=1;
+             productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
+             return;
+           }
+         }
+         productsInCart.push(product);
+       }
 
-      //  function updateProductsToShoppingCart(){
-      //   if(productsInCart.length>0){
-      //     //to complete
+        function updateProductsToShoppingCart(){
+         if(productsInCart.length>0){
+          //to complete
 
-      //     }
+          }
 
-      //   else {
+         else {
       //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
       //     cartSumPrice.innerHTML+="0";
-      //   }
-      //  }
+         }
+        }
 
       // newBuySection.append(addToCart);
-
+           
       newTextSection.append(createElement("h2", product.title), createElement("p", product.description));
 
       newPriceBoxSection.append(
@@ -260,10 +260,18 @@ getData().then((products) => {
       productsList.appendChild(newArticle);
 
       // Adaugate acum de Nicu
-      const cartButton = document.createElement("div");
+      const cartButton = document.createElement("button");
+      cartButton.classList.add('buy-btn');
       cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
       cartButton.setAttribute("id", "cart-button-container");
-      newArticle.appendChild(cartButton);
+      //newArticle.appendChild(cartButton);
+      newPriceBoxSection.append(cartButton);
+      cartButton.onclick = function() {
+        updateProductsToArray(prodToCart);
+        console.log(productsInCart);
+   //     updateProductsToShoppingCart();
+      }
+      
 
       // cartButton.forEach((btn) => {
       //   btn.addEventListener(`click`,console.log(`Merge`));
