@@ -26,13 +26,17 @@ npx json-server --watch db.json
 6. ~~Add unique ids to HTML for each product~~
 7. If not discount on product do not calculate discount, add validation in javascript
 8. Add a buy button or a add to cart
+
 - on buy button click - open shopping cart with item already in it
 - on add to cart just store the selected item
-9. Add a shopping cart functionality 
+
+9. Add a shopping cart functionality
+
 - it there are product in cart added by 'add to cart' then populate the product list with them
 - a product list - product - quantity, price (calculated by quantity), remove from cart (delete)
 - total sum on ordered items
 - Confirmation button
+
 10. On click on product open dialog/modal to view product details
 11. Compare products
 12. Add product to favorites

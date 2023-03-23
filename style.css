@@ -20,8 +20,8 @@ article {
 }
 
 .products-container article:hover {
-  box-shadow: 0 0 20px black; 
-  }  
+  box-shadow: 0 0 20px black;
+}
 
 .image-container {
   position: relative;
@@ -40,6 +40,8 @@ img {
   top: 50%;
   left: 10px;
 
+  cursor: pointer;
+
   border: none;
   background-color: transparent;
   border-radius: 50%;
@@ -56,6 +58,8 @@ img {
   top: 50%;
   right: 10px;
 
+  cursor: pointer;
+
   border: none;
   background-color: transparent;
   border-radius: 50%;
@@ -70,6 +74,25 @@ img {
 .prev-btn:hover,
 .next-btn:hover {
   background-color: rgba(230, 230, 230, 0.5);
+}
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+}
+
+.dot {
+  cursor: pointer;
+  height: 8px;
+  width: 8px;
+  margin: 0 2px;
+  background-color: lightgray;
+  border-radius: 50%;
+}
+
+.active,
+.dot:hover {
+  background-color: gray;
 }
 
 .text-container {
@@ -158,6 +181,18 @@ p {
 
 
 /*test nicu*/
+.price {
+  text-decoration: line-through;
+}
+
+.modalProduct {
+  width: 50%;
+  margin: auto;
+  display: block;
+  position: fixed;
+  /* top: 50%;
+  left: 50%; === vrem sa vedem ce se intampla daca  */
+}
 
 .modalProduct button {
   display: flex;
