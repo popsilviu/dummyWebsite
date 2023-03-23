@@ -240,7 +240,7 @@ p {
 }
 
 .hide{
-  display: none;
+  /* display: none; */
 }
 
 .cart-wrapper{
@@ -256,7 +256,7 @@ p {
   padding:5%;
 }
 .checkout, .view-cart{
-  width:95%;
+  width: 100px;
   text-align: center;
   cursor: pointer;
   background-color: brown;
