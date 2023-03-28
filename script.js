@@ -8,41 +8,41 @@ class CartItem {
   }
 }
 
-class LocalCart {
-  static key = "cartItems";
+// class LocalCart {
+//   static key = "cartItems";
 
-  static getLocalCartItems() {
-    let cartMap = new Map();
-    const cart = localStorage.getItem(LocalCart.key);
-    if (cart === null || cart.length === 0) return cartMap;
-    return new Map(Object.entries(JSON.parse(cart)));
-  }
+//   static getLocalCartItems() {
+//     let cartMap = new Map();
+//     const cart = localStorage.getItem(LocalCart.key);
+//     if (cart === null || cart.length === 0) return cartMap;
+//     return new Map(Object.entries(JSON.parse(cart)));
+//   }
 
-  static addItemToLocalCart(id, item) {
-    let cart = LocalCart.getLocalCartItems();
-    if (cart.has(id)) {
-      let mapItem = cart.get(id);
-      mapItem.quantity += 1;
-      cart.set(id, mapItem);
-    } else cart.set(id, item);
-    localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
-    updateCartUI();
-  }
+//   static addItemToLocalCart(id, item) {
+//     let cart = LocalCart.getLocalCartItems();
+//     if (cart.has(id)) {
+//       let mapItem = cart.get(id);
+//       mapItem.quantity += 1;
+//       cart.set(id, mapItem);
+//     } else cart.set(id, item);
+//     localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
+//     updateCartUI();
+//   }
 
-  static removeItemFromCart(id) {
-    let cart = LocalCart.getLocalCartItems();
-    if (cart.has(id)) {
-      let mapItem = cart.get(id);
-      if (mapItem.quantity > 1) {
-        mapItem.quantity -= 1;
-        cart.set(id, mapItem);
-      } else cart.delete(id);
-    }
-    if (cart.length === 0) localStorage.clear();
-    else localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
-    updateCartUI();
-  }
-}
+//   static removeItemFromCart(id) {
+//     let cart = LocalCart.getLocalCartItems();
+//     if (cart.has(id)) {
+//       let mapItem = cart.get(id);
+//       if (mapItem.quantity > 1) {
+//         mapItem.quantity -= 1;
+//         cart.set(id, mapItem);
+//       } else cart.delete(id);
+//     }
+//     if (cart.length === 0) localStorage.clear();
+//     else localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
+//     updateCartUI();
+//   }
+// }
 
 const navbar = document.querySelector(".navbar");
 const cartIcon = document.createElement("div");
@@ -60,27 +60,27 @@ cartWindow.setAttribute("class", "cart-window-container hide");
 cartIcon.appendChild(cartWindow);
 cartWindow.inWindow = 0;
 
-// cartIcon.addEventListener("mouseover", () => {
-//   if (cartWindow.classList.contains("hide")) cartWindow.classList.remove("hide");
-// });
+cartIcon.addEventListener("mouseover", () => {
+  if (cartWindow.classList.contains("hide")) cartWindow.classList.remove("hide");
+});
 
-// cartIcon.addEventListener("mouseleave", () => {
-//   // if(wholeCartWindow.classList.contains('hide'))
-//   setTimeout(() => {
-//     if (cartWindow.inWindow === 0) {
-//       cartWindow.classList.add("hide");
-//     }
-//   }, 500);
-// });
+cartIcon.addEventListener("mouseleave", () => {
+  if(cartWindow.classList.contains('hide'))
+  setTimeout(() => {
+    if (cartWindow.inWindow === 0) {
+      cartWindow.classList.add("hide");
+    }
+  }, 500);
+});
 
-// cartWindow.addEventListener("mouseover", () => {
-//   cartWindow.inWindow = 1;
-// });
+cartWindow.addEventListener("mouseover", () => {
+  cartWindow.inWindow = 1;
+});
 
-// cartWindow.addEventListener("mouseleave", () => {
-//   cartWindow.inWindow = 0;
-//   cartWindow.classList.add("hide");
-// });
+cartWindow.addEventListener("mouseleave", () => {
+  cartWindow.inWindow = 0;
+  cartWindow.classList.add("hide");
+});
 
 //h2 -
 const titleWindowCart = document.createElement("h2");
@@ -182,37 +182,8 @@ getData().then((products) => {
 
       newImageSection.append(newImage, prevButton, nextButton);
 
-      // Alexandra!!!!!!!!!//
-
-      // const buyButton=document.createElement('button');
-      // const addToCart=document.createElement('button');
-      // buyButton.innerHTML="Buy";
-      // addToCart.innerHTML="Add to Cart";
-      // buyButton.classList.add('buy-btn');
-      // addToCart.classList.add('add-btn');
-
-      //   const closeButton=document.createElement("button");
-      //   closeButton.classList.add('close-btn');
-
-      //   closeButton.innerHTML='&times;';
-      //   modal.append(closeButton);
-
-      //   buyButton.onclick = function() {
-      //     modal.style.display = "block";
-      //   }
-      //   addToCart.onclick = function() {
-      //     modal.style.display = "block";
-      //     updateProductsToArray(prodToCart);
-      //     updateProductsToShoppingCart();
-      //   }
-
-      //   closeButton.onclick = function() {
-      //     modal.style.display = "none";
-      //   }
-
-        let cartSumPrice="Suma totala:";
-
-        let prodToCart={
+      
+         let prodToCart={
          name: product.title,
          id: product.id,
          image: newImage.src,
@@ -231,14 +202,56 @@ getData().then((products) => {
            }
          }
          productsInCart.push(prodToCart);
-         
-       // updateProductsToShoppingCart();
+         updateProductsToShoppingCart();
        }
-       
-        let updateProductsToShoppingCart = ()=>{
-         cartWrapper.append(productsInCart.innerHTML);
+      
+       let countTheSumPrice = function () { 
+        let sum = 0;
+        productsInCart.forEach(product => {
+          sum += product.price;
+        });
+        return sum;
+      }
+      
+        let updateProductsToShoppingCart = function () {  
+              if (productsInCart.length > 0) {
+              let result = productsInCart.map(product => {
+                return `
+                  <li class="cart-wrapper">
+                    <img src="${product.image}">
+                    <div>
+                      <h5>${product.name}</h5>
+                      <h6>$${product.price}</h6>
+                      <div>
+                        <button class="button-minus" data-id=${product.id}>-</button>
+                        <span class="countOfProduct">${product.count}</span>
+                        <button class="button-plus" data-id=${product.id}>+</button>
+                      </div>
+                    </div>
+                  </li>`
+              });
 
+              cartWrapper.innerHTML = result.join('');
+              //document.querySelector('.checkout').classList.remove('hidden');
+              total.innerHTML = 'Total :' + countTheSumPrice();
+          
+            }
+            else {
+              
+              total.innerHTML = "Total : $0.00 ";
+            }
           }
+         // for (let i=0;i<productsInCart.length;i++) {
+            // appending your elements to the body :
+         //   cartWrapper.append(productsInCart[i]);
+
+
+         
+       
+        
+         
+
+          
 
         
       //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
