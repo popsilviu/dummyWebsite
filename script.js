@@ -208,9 +208,10 @@ getData().then((products) => {
        let countTheSumPrice = function () { 
         let sum = 0;
         productsInCart.forEach(product => {
-          sum += product.price;
+          sum += Number(product.price);
         });
-        return sum;
+        //return parseInt(sum) ;
+        return sum.toFixed(2);
       }
       
         let updateProductsToShoppingCart = function () {  
