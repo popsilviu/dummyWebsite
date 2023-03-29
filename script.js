@@ -8,41 +8,6 @@ class CartItem {
   }
 }
 
-// class LocalCart {
-//   static key = "cartItems";
-
-//   static getLocalCartItems() {
-//     let cartMap = new Map();
-//     const cart = localStorage.getItem(LocalCart.key);
-//     if (cart === null || cart.length === 0) return cartMap;
-//     return new Map(Object.entries(JSON.parse(cart)));
-//   }
-
-//   static addItemToLocalCart(id, item) {
-//     let cart = LocalCart.getLocalCartItems();
-//     if (cart.has(id)) {
-//       let mapItem = cart.get(id);
-//       mapItem.quantity += 1;
-//       cart.set(id, mapItem);
-//     } else cart.set(id, item);
-//     localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
-//     updateCartUI();
-//   }
-
-//   static removeItemFromCart(id) {
-//     let cart = LocalCart.getLocalCartItems();
-//     if (cart.has(id)) {
-//       let mapItem = cart.get(id);
-//       if (mapItem.quantity > 1) {
-//         mapItem.quantity -= 1;
-//         cart.set(id, mapItem);
-//       } else cart.delete(id);
-//     }
-//     if (cart.length === 0) localStorage.clear();
-//     else localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
-//     updateCartUI();
-//   }
-// }
 
 const navbar = document.querySelector(".navbar");
 const cartIcon = document.createElement("div");
@@ -208,7 +173,7 @@ getData().then((products) => {
        let countTheSumPrice = function () { 
         let sum = 0;
         productsInCart.forEach(product => {
-          sum += Number(product.price);
+          sum += Number(product.price*product.count);
         });
         //return parseInt(sum) ;
         return sum.toFixed(2);
@@ -224,9 +189,9 @@ getData().then((products) => {
                       <h5>${product.name}</h5>
                       <h6>$${product.price}</h6>
                       <div>
-                        <button class="button-minus" data-id=${product.id}>-</button>
+                        <button class="button-minus" data-id=${product.id}> - </button>
                         <span class="countOfProduct">${product.count}</span>
-                        <button class="button-plus" data-id=${product.id}>+</button>
+                        <button class="button-plus" data-id=${product.id}> + </button>
                       </div>
                     </div>
                   </li>`
@@ -242,25 +207,45 @@ getData().then((products) => {
               total.innerHTML = "Total : $0.00 ";
             }
           }
-         // for (let i=0;i<productsInCart.length;i++) {
-            // appending your elements to the body :
-         //   cartWrapper.append(productsInCart[i]);
+
+           cartWrapper.addEventListener ('click', (e) => { // Last
+            const isPlusButton = e.target.classList.contains('button-plus');
+            const isMinusButton = e.target.classList.contains('button-minus');
+            if (isPlusButton || isMinusButton) {
+              for (let i = 0; i < productsInCart.length; i++) {
+                if (productsInCart[i].id == product.id) {
+                  if (isPlusButton) {
+                    productsInCart[i].count += 1;
+                    console.log('count=', productsInCart.count);
+                  }
+                  else if (isMinusButton) {
+                    productsInCart[i].count -= 1
+                  }
+                  productsInCart[i].price = productsInCart[i].price * productsInCart[i].count;
+          
+                }
+                if (productsInCart[i].count <= 0) {
+                  productsInCart.splice(i, 1);
+                }
+              }
+              updateProductsToShoppingCart ();
+            }
+           });
+
+
+
+        //  isPlusButton.addEventListener("click", incCount);
+        //  isMinusButton.addEventListener('click', decCount);
+        //  function incCount(){
+        //   product.count += 1;
+        // }
+
+
 
 
          
        
         
-         
-
-          
-
-        
-      //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
-      //     cartSumPrice.innerHTML+="0";
-        
-      
-
-      // newBuySection.append(addToCart);
            
       newTextSection.append(createElement("h2", product.title), createElement("p", product.description));
 
