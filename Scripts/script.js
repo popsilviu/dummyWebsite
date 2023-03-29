@@ -13,7 +13,6 @@ getData().then((products) => {
         return tagElement;
       }
 
-      console.log(product);
       const productsList = document.querySelector('.products-container');
       const newArticle = document.createElement('article');
       const newImageSection = document.createElement('section');
@@ -30,6 +29,34 @@ getData().then((products) => {
 
       createImageSlider(product, newImageSection);
       compareButton.addEventListener('click', compareProducts);
+
+      function compareProducts(e) {
+        const itemsToCompare = [product];
+
+        const category = product.category;
+
+        const categoryArr = products.filter(
+          (product) => product.category === category
+        );
+
+        console.log(categoryArr);
+        const numItemsToCompare = 3;
+
+        displayItemsToCompare();
+
+        function displayItemsToCompare() {
+          while (itemsToCompare.length < numItemsToCompare + 1) {
+            const randomIndex = Math.floor(Math.random() * categoryArr.length);
+            console.log(categoryArr[randomIndex]);
+            const idArr = itemsToCompare.map(({ id }) => id);
+            console.log(idArr);
+            if (!idArr.includes(categoryArr[randomIndex].id)) {
+              itemsToCompare.push(categoryArr[randomIndex]);
+            }
+            console.log(itemsToCompare);
+          }
+        }
+      }
 
       newTextSection.append(
         createElement('h2', product.title),
