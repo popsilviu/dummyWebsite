@@ -5,6 +5,7 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
+    console.log("Lista cu produse: ", products);
     console.log('Lista cu produse: ', products);
     products.forEach((product) => {
       function createElement(tag, text) {
@@ -25,6 +26,71 @@ getData().then((products) => {
       newPriceBoxSection.classList.add('price-container');
 
       createImageSlider(product, newImageSection);
+      const newImage = document.createElement('img');
+      const prevButton = document.createElement('button');
+      const nextButton = document.createElement('button');
+      const favButton = document.createElement('button');
+
+
+      let imageIndex = 0;
+      newImage.src = product.images[imageIndex];
+      prevButton.innerText = '<';
+      nextButton.innerText = '>';
+      favButton.innerText = 'Add to favourite';
+
+
+      prevButton.classList.add('prev-btn');
+      nextButton.classList.add('next-btn');
+      favButton.classList.add('favourite-btn');
+
+
+      prevButton.addEventListener('click', previousImage);
+      nextButton.addEventListener('click', nextImage);
+      favButton.addEventListener('click', favouriteButton);
+
+
+      function previousImage() {
+        if (imageIndex === 0) {
+          prevButton.disabled = true;
+        } else {
+          imageIndex -= 1;
+          newImage.src = product.images[imageIndex];
+          nextButton.disabled = false;
+        }
+      }
+
+      function nextImage() {
+        if (imageIndex === product.images.length - 1) {
+          nextButton.disabled = true;
+        } else {
+          imageIndex += 1;
+          newImage.src = product.images[imageIndex];
+          prevButton.disabled = false;
+        }
+      }
+
+      function favouriteButton() {
+
+        let data = product
+        
+        fetch('http://localhost:3000/favourites', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Favourite Added: ", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error)
+            alert('Product is already in favourites.');
+          });
+      }
+
+      newImageSection.append(newImage, prevButton, nextButton, favButton);
 
       newTextSection.append(
         createElement("h2", product.title),
@@ -63,3 +129,4 @@ getData().then((products) => {
     });
   }
 });
+
