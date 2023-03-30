@@ -73,6 +73,7 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
+    console.log('Lista cu produce: ', products);
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
@@ -92,21 +93,42 @@ getData().then((products) => {
       newTextSection.classList.add("text-container");
       newPriceBoxSection.classList.add("price-container");
       newBuySection.classList.add("buy-container");
-   
-      const newImage = document.createElement("img");
-      const prevButton = document.createElement("button");
-      const nextButton = document.createElement("button");
+      // modal.classList.add('myModal');
+      // modalContent.classList.add('modal-content');
+
+      const newImage = document.createElement('img');
+      const prevButton = document.createElement('button');
+      const nextButton = document.createElement('button');
+      const dotContainer = document.createElement('div');
 
       let imageIndex = 0;
       newImage.src = product.images[imageIndex];
       prevButton.innerText = "<";
       nextButton.innerText = ">";
 
-      prevButton.classList.add("prev-btn");
-      nextButton.classList.add("next-btn");
+      prevButton.classList.add('prev-btn');
+      nextButton.classList.add('next-btn');
+      dotContainer.classList.add('dot-container');
 
-      prevButton.addEventListener("click", previousImage);
-      nextButton.addEventListener("click", nextImage);
+      prevButton.addEventListener('click', previousImage);
+      nextButton.addEventListener('click', nextImage);
+      createDotsForImages();
+
+      let dotArr = Array.from(dotContainer.childNodes);
+      dotArr[0].classList.add('active');
+
+      function createDotsForImages() {
+        for (let i = 0; i < product.images.length; i++) {
+          const dot = document.createElement('span');
+          dot.classList.add('dot');
+          dotContainer.append(dot);
+          dot.addEventListener('click', () => {
+            newImage.src = product.images[i];
+            dotArr.forEach((elem) => elem.classList.remove('active'));
+            dotArr[i].classList.add('active');
+          });
+        }
+      }
 
       function calculateDiscountedPrice() {
         return (((100 - product.discountPercentage) / 100) * product.price).toFixed(2);
@@ -114,35 +136,95 @@ getData().then((products) => {
 
       function previousImage() {
         if (imageIndex === 0) {
-          prevButton.disabled = true;
+          imageIndex = product.images.length - 1;
+          newImage.src = product.images[imageIndex];
+          dotArr[imageIndex].classList.add('active');
+          dotArr[0].classList.remove('active');
         } else {
           imageIndex -= 1;
           newImage.src = product.images[imageIndex];
-          nextButton.disabled = false;
+          dotArr[imageIndex].classList.add('active');
+          dotArr[imageIndex + 1].classList.remove('active');
         }
       }
 
       function nextImage() {
         if (imageIndex === product.images.length - 1) {
-          nextButton.disabled = true;
+          imageIndex = 0;
+          newImage.src = product.images[imageIndex];
+          dotArr[imageIndex].classList.add('active');
+          dotArr[product.images.length - 1].classList.remove('active');
         } else {
           imageIndex += 1;
           newImage.src = product.images[imageIndex];
-          prevButton.disabled = false;
+          dotArr[imageIndex].classList.add('active');
+          dotArr[imageIndex - 1].classList.remove('active');
         }
       }
 
-      newImageSection.append(newImage, prevButton, nextButton);
-      
       newTextSection.append(createElement("h2", product.title), createElement("p", product.description));
+      newImageSection.append(newImage, prevButton, nextButton, dotContainer);
 
-      newPriceBoxSection.append(
-        createElement("p", `Price: ${product.price}`),
-        createElement("p", `Discount: ${product.discountPercentage}`),
-        createElement("p", `Discount price: ${calculateDiscountedPrice()}`),
-        createElement("p", `Stock: ${product.stock}`),
-        createElement("p", `Rating: ${product.rating}`)
-      );
+      
+
+        let cartSumPrice="Suma totala:";
+
+        
+      //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
+      //     cartSumPrice.innerHTML+="0";
+        
+      
+
+      // newBuySection.append(addToCart);
+
+      //task 10 - Toni:
+        
+      newTextSection.append(createElement("h2", product.title));
+      
+      
+      const modalDetails = createElement('div');
+      const openButton = createElement('button');
+      const closeButton = createElement('button');
+      const priceDetails = createElement('div');
+      priceDetails.classList.add('product-details');
+      priceDetails.innerText = " ";
+      
+      priceDetails.append (createElement('p', " "), 
+      createElement("p", "Price:  " + product.price + "$", 'text-decoration: line-through'),
+      createElement("p", "-" + product.discountPercentage + "%"),
+      createElement("p", (product.price - (product.price * product.discountPercentage / 100 )).toFixed(2) + " $")) ;
+
+      // modalDetails.classList.add('modal-details');
+      modalDetails.setAttribute('class', 'modal-details hide')
+      newTextSection.append(modalDetails,openButton);
+      openButton.classList.add('open-button')
+      openButton.innerText= 'View more details';
+      
+      closeButton.classList.add('close-button')
+      closeButton.innerText= 'Close';
+      modalDetails.innerText='';
+      newPriceBoxSection.append(priceDetails);
+      modalDetails.inWindow = 0;
+      openButton.addEventListener('click', () => 
+      {
+        if (modalDetails.classList.contains('hide')) { modalDetails.classList.remove('hide') ,openButton.classList.add('hide')};
+      });
+
+      closeButton.addEventListener('click', () =>
+      {
+        if(modalDetails.inWindow === 0)  {
+          modalDetails.classList.add('hide') , openButton.classList.remove('hide')
+        }
+      })
+
+      
+
+      modalDetails.append(createElement('p', product.description), createElement('br'),
+        createElement('p', `In stock:   ${product.stock}` + ' left'),
+        createElement('p', `Rating: ${product.rating}`),
+        closeButton);
+        // task 10 done.
+
 
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
       productsList.appendChild(newArticle);
