@@ -179,7 +179,6 @@ getData().then((products) => {
 
       //task 10 - Toni:
         
-      newTextSection.append(createElement("h2", product.title));
       
       
       const modalDetails = createElement('div');

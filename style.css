@@ -190,15 +190,6 @@ p {
   left: 50%; === vrem sa vedem ce se intampla daca  */
 }
 
-.modalProduct button {
-  display: flex;
-  justify-content: flex-end;
-  margin: 5px;
-  border-radius: 5px;
-  border: solid 1px;
-  background-color: red;
-  color: white;
-}
 
 /*Custom cart button of the products item*/
 #cart-button-container {
@@ -271,7 +262,6 @@ p {
   margin-right: 2%;
   right: 0px;
   top: 70px;
-  transition: opacity 1s;
 }
 
 .cart-window-container h2 {
@@ -283,8 +273,7 @@ p {
 }
 
 .hide {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+  display: none;
 }
 
 .cart-wrapper {
