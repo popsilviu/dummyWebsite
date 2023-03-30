@@ -5,7 +5,13 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
-    console.log('Lista cu produse: ', products);
+    console.log('Lista cu produce: ', products);
+    const productsList = document.querySelector('.products-container');
+    showProducts(products);
+    sortProducts();
+
+    //function showProducts(products){
+    
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
@@ -13,7 +19,7 @@ getData().then((products) => {
         return tagElement;
       }
 
-      const productsList = document.querySelector('.products-container');
+
       const newArticle = document.createElement('article');
       const newImageSection = document.createElement('section');
       const newTextSection = document.createElement('section');
@@ -52,7 +58,6 @@ getData().then((products) => {
       }
 
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
-
       productsList.appendChild(newArticle);
 
       newTextSection.addEventListener('click', productDetails);
@@ -61,5 +66,43 @@ getData().then((products) => {
         location.href = `productDetails.html?productId=${product.id}`;
       }
     });
+    //}
+    
+    //const detailsArr = Array.from(newPriceBoxSection.childNodes);
+
+    // function calculateDiscountedPrice() {
+    //   if (!product.discountPercentage) {
+    //     detailsArr[2].style.display = 'none';
+
+    //     return;
+    //   } else {
+    //     detailsArr[0].classList.add('price');
+
+    //     return (
+    //       ((100 - product.discountPercentage) / 100) *
+    //       product.price
+    //     ).toFixed(2);
+    //   }
+    // }
+
+
+    function createModal(id) {
+      // Product
+
+      const product = products.filter((product) => product.id == id);
+
+      const modal = document.createElement('div');
+      const titleModal = document.createElement('h1');
+      const exitBtn = document.createElement('button');
+      const price = document.createElement('span');
+      const modalImage = document.createElement('div');
+
+      modal.classList.add('modalProduct');
+      modalImage.classList.add('modalImage');
+
+      modalImage.append(newImage);
+    }
+
+    
   }
 });

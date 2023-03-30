@@ -197,3 +197,9 @@ img {
   background-color: red;
   color: white;
 }
+
+#sort-select {
+  margin-bottom:25px ;
+  margin-left: 10px;
+  font-size: 1rem;
+}
