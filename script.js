@@ -1,14 +1,3 @@
-class CartItem {
-  constructor(name, desc, img, price) {
-    this.name = name;
-    this.desc = desc;
-    this.img = img;
-    this.price = price;
-    this.quantity = 1;
-  }
-}
-
-
 const navbar = document.querySelector(".navbar");
 const cartIcon = document.createElement("div");
 cartIcon.setAttribute("id", "cart-nav-icon-container");
@@ -30,12 +19,12 @@ cartIcon.addEventListener("mouseover", () => {
 });
 
 cartIcon.addEventListener("mouseleave", () => {
-  if(cartWindow.classList.contains('hide'))
-  setTimeout(() => {
-    if (cartWindow.inWindow === 0) {
-      cartWindow.classList.add("hide");
-    }
-  }, 500);
+  if (cartWindow.classList.contains("hide"))
+    setTimeout(() => {
+      if (cartWindow.inWindow === 0) {
+        cartWindow.classList.add("hide");
+      }
+    }, 500);
 });
 
 cartWindow.addEventListener("mouseover", () => {
@@ -49,7 +38,7 @@ cartWindow.addEventListener("mouseleave", () => {
 
 //h2 -
 const titleWindowCart = document.createElement("h2");
-titleWindowCart.innerText = "Shopping Cart";
+titleWindowCart.innerText = "SHOPPING CART";
 cartWindow.appendChild(titleWindowCart);
 //div - cart wrapper
 const cartWrapper = document.createElement("div");
@@ -68,10 +57,13 @@ cartWindow.appendChild(checkout);
 //div - view cart
 const viewCart = document.createElement("div");
 viewCart.setAttribute("class", "view-cart");
-viewCart.innerText = "view-cart";
+viewCart.innerText = "  View-cart";
 cartWindow.appendChild(viewCart);
 
-let productsInCart=[];
+let productsInCart = []; // Products array
+console.log(productsInCart);
+console.log(productsInCart.entries());
+
 
 
 async function getData() {
@@ -88,28 +80,19 @@ getData().then((products) => {
         return tagElement;
       }
 
-      function calculateDiscountedPrice() {
-        return (((100 - product.discountPercentage) / 100) * product.price).toFixed(2);
-      }
-
-      // console.log(product);
       const productsList = document.querySelector(".products-container");
       const newArticle = document.createElement("article");
       const newImageSection = document.createElement("section");
       const newTextSection = document.createElement("section");
       const newPriceBoxSection = document.createElement("section");
       const newBuySection = document.createElement("section");
-      // const modal=document.createElement('section');
-      // const modalContent=document.createElement('section');
-
+    
       newArticle.setAttribute("id", product.id);
       newImageSection.classList.add("image-container");
       newTextSection.classList.add("text-container");
       newPriceBoxSection.classList.add("price-container");
       newBuySection.classList.add("buy-container");
-      // modal.classList.add('myModal');
-      // modalContent.classList.add('modal-content');
-
+   
       const newImage = document.createElement("img");
       const prevButton = document.createElement("button");
       const nextButton = document.createElement("button");
@@ -124,6 +107,10 @@ getData().then((products) => {
 
       prevButton.addEventListener("click", previousImage);
       nextButton.addEventListener("click", nextImage);
+
+      function calculateDiscountedPrice() {
+        return (((100 - product.discountPercentage) / 100) * product.price).toFixed(2);
+      }
 
       function previousImage() {
         if (imageIndex === 0) {
@@ -146,107 +133,7 @@ getData().then((products) => {
       }
 
       newImageSection.append(newImage, prevButton, nextButton);
-
       
-         let prodToCart={
-         name: product.title,
-         id: product.id,
-         image: newImage.src,
-         count:1,
-         price: calculateDiscountedPrice(product.price),
-         unitPrice: product.price
-        }
-     
-
-        function updateProductsToArray(product){
-         for (let i=0; i<productsInCart.length; i++){
-           if(productsInCart[i].id === product.id){
-             productsInCart[i].count+=1;
-             productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
-             return;
-           }
-         }
-         productsInCart.push(prodToCart);
-         updateProductsToShoppingCart();
-       }
-      
-       let countTheSumPrice = function () { 
-        let sum = 0;
-        productsInCart.forEach(product => {
-          sum += Number(product.price*product.count);
-        });
-        //return parseInt(sum) ;
-        return sum.toFixed(2);
-      }
-      
-        let updateProductsToShoppingCart = function () {  
-              if (productsInCart.length > 0) {
-              let result = productsInCart.map(product => {
-                return `
-                  <li class="cart-wrapper">
-                    <img src="${product.image}">
-                    <div>
-                      <h5>${product.name}</h5>
-                      <h6>$${product.price}</h6>
-                      <div>
-                        <button class="button-minus" data-id=${product.id}> - </button>
-                        <span class="countOfProduct">${product.count}</span>
-                        <button class="button-plus" data-id=${product.id}> + </button>
-                      </div>
-                    </div>
-                  </li>`
-              });
-
-              cartWrapper.innerHTML = result.join('');
-              //document.querySelector('.checkout').classList.remove('hidden');
-              total.innerHTML = 'Total :' + countTheSumPrice();
-          
-            }
-            else {
-              
-              total.innerHTML = "Total : $0.00 ";
-            }
-          }
-
-           cartWrapper.addEventListener ('click', (e) => { // Last
-            const isPlusButton = e.target.classList.contains('button-plus');
-            const isMinusButton = e.target.classList.contains('button-minus');
-            if (isPlusButton || isMinusButton) {
-              for (let i = 0; i < productsInCart.length; i++) {
-                if (productsInCart[i].id == product.id) {
-                  if (isPlusButton) {
-                    productsInCart[i].count += 1;
-                    console.log('count=', productsInCart.count);
-                  }
-                  else if (isMinusButton) {
-                    productsInCart[i].count -= 1
-                  }
-                  productsInCart[i].price = productsInCart[i].price * productsInCart[i].count;
-          
-                }
-                if (productsInCart[i].count <= 0) {
-                  productsInCart.splice(i, 1);
-                }
-              }
-              updateProductsToShoppingCart ();
-            }
-           });
-
-
-
-        //  isPlusButton.addEventListener("click", incCount);
-        //  isMinusButton.addEventListener('click', decCount);
-        //  function incCount(){
-        //   product.count += 1;
-        // }
-
-
-
-
-         
-       
-        
-           
       newTextSection.append(createElement("h2", product.title), createElement("p", product.description));
 
       newPriceBoxSection.append(
@@ -257,88 +144,104 @@ getData().then((products) => {
         createElement("p", `Rating: ${product.rating}`)
       );
 
-      newArticle.append(newImageSection, newTextSection, newPriceBoxSection); // am scos , newBuySection, modal - create de alexandra
+      newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
       productsList.appendChild(newArticle);
 
-      // Adaugate acum de Nicu
       const cartButton = document.createElement("button");
-      cartButton.classList.add('buy-btn');
+      cartButton.classList.add("buy-btn");
       cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
       cartButton.setAttribute("id", "cart-button-container");
-      //newArticle.appendChild(cartButton);
-      newPriceBoxSection.append(cartButton);
-      cartButton.onclick = function() {
+      newArticle.append(cartButton);
+      cartButton.onclick = function () {
         updateProductsToArray(prodToCart);
-        console.log(productsInCart);
+        updateProductsToShoppingCart();
+      };
+
+      let prodToCart = {
+        name: product.title,
+        id: product.id,
+        image: newImage.src,
+        count: 1,
+        price: calculateDiscountedPrice(product.price),
+        unitPrice: product.price,
+      };
+
+      function updateProductsToArray(product) {
+        for (let i = 0; i < productsInCart.length; i++) {
+          if (productsInCart[i].id === product.id) {
+            productsInCart[i].count += 1;
+            productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
+            return;
+          }
+        }
+        productsInCart.push(prodToCart);
         updateProductsToShoppingCart();
       }
-      
 
-      // cartButton.forEach((btn) => {
-      //   btn.addEventListener(`click`,console.log(`Merge`));
-      // });
+      let countTheSumPrice = function () {
+        let sum = 0;
+        productsInCart.forEach((product) => {
+          sum += Number(product.price * product.count);
+        });
+        //return parseInt(sum) ;
+        return sum.toFixed(2);
+      };
+
+      let updateProductsToShoppingCart = function () {
+        if (productsInCart.length > 0) {
+          let result = productsInCart.map((product) => {
+            return `
+                  <li class="cart-li">
+                    <img class="cart-wrapper-img" src="${product.image}">
+                    <h5 class="item-cart-title">${product.name}</h5>
+                    <div class="box-price-quantity">
+                      <h6 class="item-cart-price">$${product.price}</h6>
+                      <div class="quantity">
+                        <button class="button-minus" data-id=${product.id}> - </button>
+                        <span class="countOfProduct">${product.count}</span>
+                        <button class="button-plus" data-id=${product.id}> + </button>
+                      </div>
+                    </div>
+                  </li>`;
+          });
+
+          cartWrapper.innerHTML = result.join("");
+          //document.querySelector('.checkout').classList.remove('hidden');
+          total.innerHTML = "TOTAL: $" + countTheSumPrice();
+        } else {
+          total.innerHTML = "Total : $0.00 ";
+        }
+      };
+
+      cartWrapper.addEventListener("click", (e) => {
+        // Last
+        const isPlusButton = e.target.classList.contains("button-plus");
+        const isMinusButton = e.target.classList.contains("button-minus");
+        if (isPlusButton || isMinusButton) {
+          for (let i = 0; i < productsInCart.length; i++) {
+            if (productsInCart[i].id == product.id) {
+              if (isPlusButton) {
+                productsInCart[i].count += 1;
+                console.log("count=", productsInCart.count);
+              } else if (isMinusButton) {
+                productsInCart[i].count -= 1;
+              }
+              productsInCart[i].price = productsInCart[i].price * productsInCart[i].count;
+            }
+            if (productsInCart[i].count <= 0) {
+              productsInCart.splice(i, 1);
+            }
+          }
+          updateProductsToShoppingCart();
+        }
+      });
+
+      //  isPlusButton.addEventListener("click", incCount);
+      //  isMinusButton.addEventListener('click', decCount);
+      //  function incCount(){
+      //   product.count += 1;
+      // }
     });
   }
 });
 
-
-
-function addItemFunction(e) {
-  const id = e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
-  const img = e.target.parentElement.parentElement.previousElementSibling.src;
-  const name = e.target.parentElement.previousElementSibling.textContent;
-  const desc = e.target.parentElement.children[0].textContent;
-  let price = e.target.parentElement.children[1].textContent;
-  price = price.replace("Price: $", "");
-  const item = new CartItem(name, desc, img, price);
-  LocalCart.addItemToLocalCart(id, item);
-  console.log(price);
-}
-
-
-// !!!!!!!!!!!!!!!!!!!FUNCTIA ASTA TREBUIE SA O REZOLVAM!!!!!!!!!!
-
-// function updateCartUI(){
-//   cartWrapper.innerHTML=""
-//   const items = LocalCart.getLocalCartItems()
-//   if(items === null) return
-//   let count = 0
-//   let total = 0
-//   for(const [key, value] of items.entries()){
-//       const cartItem = document.createElement('div')
-//       cartItem.classList.add('cart-item')
-//       let price = value.price*value.quantity
-//       price = Math.round(price*100)/100
-//       count+=1
-//       total += price
-//       total = Math.round(total*100)/100
-//       cartItem.innerHTML =
-//       `
-//       <img src="${value.img}"> 
-//                      <div class="details">
-//                          <h3>${value.name}</h3>
-//                          <p>${value.desc}
-//                           <span class="quantity">Quantity: ${value.quantity}</span>
-//                              <span class="price">Price: $ ${price}</span>
-//                          </p>
-//                      </div>
-//                      <div class="cancel"><i class="fas fa-window-close"></i></div>
-//       `
-//      cartItem.lastElementChild.addEventListener('click', ()=>{
-//          LocalCart.removeItemFromCart(key)
-//      })
-//       cartWrapper.append(cartItem)
-//   }
-
-//   if(count > 0){
-//       cartIcon.classList.add('non-empty')
-//       let root = document.querySelector(':root')
-//       root.style.setProperty('--after-content', `"${count}"`)
-//       const subtotal = document.querySelector('.subtotal')
-//       subtotal.innerHTML = `SubTotal: $${total}`
-//   }
-//   else
-//   cartIcon.classList.remove('non-empty')
-// }
-// document.addEventListener('DOMContentLoaded', ()=>{updateCartUI()})
-  
