@@ -271,16 +271,55 @@ getData().then((products) => {
       
 
       // newBuySection.append(addToCart);
-           
-      newTextSection.append(createElement("h2", product.title), createElement("p", product.description));
 
-      newPriceBoxSection.append(
-        createElement("p", `Price: ${product.price}`),
-        createElement("p", `Discount: ${product.discountPercentage}`),
-        createElement("p", `Discount price: ${calculateDiscountedPrice()}`),
-        createElement("p", `Stock: ${product.stock}`),
-        createElement("p", `Rating: ${product.rating}`)
-      );
+      //task 10 - Toni:
+        
+      newTextSection.append(createElement("h2", product.title));
+      
+      
+      const modalDetails = createElement('div');
+      const openButton = createElement('button');
+      const closeButton = createElement('button');
+      const priceDetails = createElement('div');
+      priceDetails.classList.add('product-details');
+      priceDetails.innerText = " ";
+      
+      priceDetails.append (createElement('p', " "), 
+      createElement("p", "Price:  " + product.price + "$", 'text-decoration: line-through'),
+      createElement("p", "-" + product.discountPercentage + "%"),
+      createElement("p", (product.price - (product.price * product.discountPercentage / 100 )).toFixed(2) + " $")) ;
+
+      // modalDetails.classList.add('modal-details');
+      modalDetails.setAttribute('class', 'modal-details hide')
+      newTextSection.append(modalDetails,openButton);
+      openButton.classList.add('open-button')
+      openButton.innerText= 'View more details';
+      
+      closeButton.classList.add('close-button')
+      closeButton.innerText= 'Close';
+      modalDetails.innerText='';
+      newPriceBoxSection.append(priceDetails);
+      modalDetails.inWindow = 0;
+      openButton.addEventListener('click', () => 
+      {
+        if (modalDetails.classList.contains('hide')) { modalDetails.classList.remove('hide') ,openButton.classList.add('hide')};
+      });
+
+      closeButton.addEventListener('click', () =>
+      {
+        if(modalDetails.inWindow === 0)  {
+          modalDetails.classList.add('hide') , openButton.classList.remove('hide')
+        }
+      })
+
+      
+
+      modalDetails.append(createElement('p', product.description), createElement('br'),
+        createElement('p', `In stock:   ${product.stock}` + ' left'),
+        createElement('p', `Rating: ${product.rating}`),
+        closeButton);
+        // task 10 done.
+
 
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection); // am scos , newBuySection, modal - create de alexandra
       productsList.appendChild(newArticle);
@@ -290,8 +329,7 @@ getData().then((products) => {
       cartButton.classList.add('buy-btn');
       cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
       cartButton.setAttribute("id", "cart-button-container");
-      //newArticle.appendChild(cartButton);
-      newPriceBoxSection.append(cartButton);
+      newPriceBoxSection.appendChild(cartButton);
       cartButton.onclick = function() {
         updateProductsToArray(prodToCart);
         console.log(productsInCart);
@@ -353,7 +391,6 @@ getData().then((products) => {
 });
 
 
-
 function addItemFunction(e) {
   const id = e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
   const img = e.target.parentElement.parentElement.previousElementSibling.src;
@@ -365,7 +402,6 @@ function addItemFunction(e) {
   LocalCart.addItemToLocalCart(id, item);
   console.log(price);
 }
-
 
 // !!!!!!!!!!!!!!!!!!!FUNCTIA ASTA TREBUIE SA O REZOLVAM!!!!!!!!!!
 

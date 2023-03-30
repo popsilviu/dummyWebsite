@@ -17,6 +17,7 @@ h1 {
 article {
   box-shadow: 3px 3px 3px 3px grey;
   border-radius: 20px;
+  border: 2px solid black;
 }
 
 .products-container article:hover {
@@ -212,8 +213,8 @@ p {
 
 #cart-button {
   z-index: 3;
-  height: auto;
-  width: 15%;
+  height: 40px;
+  width: 120px;
   object-fit: contain;
   mix-blend-mode: color-burn;
 }
@@ -309,3 +310,50 @@ p {
   border: 2px solid brown;
   color: brown;
 }
+
+/* task 10- Toni */
+
+/* .modal-details {
+display: none;
+} */
+.product-details {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 1000;
+}
+.product-details p:nth-child(2) {
+  display: inline;
+}
+.product-details  p:nth-child(3) {
+  display:inline;
+  background-color: rgb(14, 14, 217);
+  padding: 1px 1px;
+  border-radius: 0px 0.5rem 0px 0.5rem;
+  color:whitesmoke;
+  margin-left: 3px;
+  font-size: 12px;
+}
+.product-details  p:nth-child(4){
+color: red;
+font-size: 17px;
+}
+
+.open-button {
+  margin-top: 30px;
+}
+
+.modal-details {
+  background-color: cadetblue;
+  color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 0.7rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.close-button {
+  margin-left: 3px;
+  margin-bottom: 3px;
+  border-radius: 7px;
+  border: 2px solid black;
+}
+
+/* task 10 done.  */
