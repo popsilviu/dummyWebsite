@@ -133,6 +133,41 @@ img {
   background-color: rgb(255, 213, 136);
 }
 
+
+.favourite-btn {
+  background-color: rgb(41, 41, 245);
+  box-shadow: 1px 1px 1px 1px grey;
+  color: white;
+  border-radius: 5px;
+}
+
+.favourite-btn:hover {
+  cursor: grab;
+}
+
+.favourite i {
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(70, 72, 78);
+}
+
+.favourite a {
+  text-decoration: none;
+  padding-right: 1rem;
+  color: rgb(70, 72, 78);
+}
+
+.remove-fav {
+  background-color: rgb(231, 95, 95);
+  box-shadow: 1px 1px 1px 1px grey;
+  color: white;
+  border-radius: 5px;
+}
+
+.remove-fav:hover {
+  cursor: grab;
+}
+
 /* description of the article container */
 
 .text-container {
