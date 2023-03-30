@@ -46,7 +46,7 @@ getData().then((products) => {
 
       prevButton.addEventListener('click', previousImage);
       nextButton.addEventListener('click', nextImage);
-      favButton.addEventListener('click', favouriteButton);
+      favButton.addEventListener('click', favouriteButton, false);
 
 
       function previousImage() {
@@ -69,10 +69,10 @@ getData().then((products) => {
         }
       }
 
-      function favouriteButton() {
-
+      function favouriteButton(e) {
+        e.preventDefault();
         let data = product
-        
+
         fetch('http://localhost:3000/favourites', {
           method: "POST",
           headers: {
