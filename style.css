@@ -168,6 +168,12 @@ img {
   cursor: grab;
 }
 
+h3 a {
+  text-decoration: none;
+  color: rgb(70, 72, 78);
+  font-size: xx-large;
+}
+
 /* description of the article container */
 
 .text-container {
