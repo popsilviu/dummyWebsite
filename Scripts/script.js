@@ -5,7 +5,7 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
-    console.log('Lista cu produce: ', products);
+    console.log('Lista cu produse: ', products);
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
@@ -28,6 +28,7 @@ getData().then((products) => {
       compareButton.innerText = 'Compare';
 
       createImageSlider(product, newImageSection);
+
       compareButton.addEventListener('click', compareProducts);
 
       function compareProducts(e) {
@@ -102,6 +103,12 @@ getData().then((products) => {
       );
 
       productsList.appendChild(newArticle);
+
+      newTextSection.addEventListener('click', productDetails);
+
+      function productDetails() {
+        location.href = `productDetails.html?productId=${product.id}`;
+      }
 
       function createModal(id) {
         // Product

@@ -62,4 +62,10 @@ function createImageSlider(product, newImageSection) {
   }
 
   newImageSection.append(newImage, prevButton, nextButton, dotContainer);
+
+  newImage.addEventListener('click', productDetails);
+
+  function productDetails() {
+    location.href = `productDetails.html?productId=${product.id}`;
+  }
 }
