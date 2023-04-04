@@ -17,29 +17,19 @@ function productDetails() {
     const brand = document.querySelector('.product-brand');
     const stock = document.querySelector('.product-stock');
     const newImageSection = document.querySelector('.image-container');
+    const compareButton = document.querySelector('.btn-compare');
 
     pageTitle.innerText = product.title + ' - Details';
     title.innerText = product.title;
     description.innerText = product.description;
     price.innerText = product.price;
-    discountPrice.innerText = calculateDiscountedPrice();
+    discountPrice.innerText = calculateDiscountedPrice(product);
     discount.innerText = product.discountPercentage;
     rating.innerText = product.rating;
     brand.innerText = product.brand;
     stock.innerText = product.stock;
 
     toggleDiscountPriceDisplay();
-
-    function calculateDiscountedPrice() {
-      if (!product.discountPercentage) {
-        return '-';
-      }
-
-      return (newPrice = (
-        ((100 - product.discountPercentage) / 100) *
-        product.price
-      ).toFixed(2));
-    }
 
     function toggleDiscountPriceDisplay() {
       if (!product.discountPercentage) {
@@ -50,6 +40,11 @@ function productDetails() {
     }
 
     createImageSlider(product, newImageSection);
+
+    compareButton.addEventListener(
+      'click',
+      () => (location.href = `compareProducts.html?productId=${product.id}`)
+    );
   }
 
   fetch(`${apiUrl}/${productId}`)
