@@ -3,7 +3,7 @@
 ## Development
 
 To run the project locally:
-
+pm
 ```
 git clone https://github.com/popsilviu/dummyWebsite.git
 cd dummyWebsite
