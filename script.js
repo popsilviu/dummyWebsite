@@ -61,24 +61,28 @@ getData().then((products) => {
 
       function previousImage() {
         if (imageIndex === 0) {
-          prevButton.disabled = true;
+          imageIndex = product.images.length - 1;
+          newImage.src = product.images[imageIndex];
+          dotArr[imageIndex].classList.add("active");
+          dotArr[0].classList.remove("active");
         } else {
           imageIndex -= 1;
           newImage.src = product.images[imageIndex];
           dotArr[imageIndex].classList.add("active");
-          nextButton.disabled = false;
           dotArr[imageIndex + 1].classList.remove("active");
         }
       }
 
       function nextImage() {
         if (imageIndex === product.images.length - 1) {
-          nextButton.disabled = true;
+          imageIndex = 0;
+          newImage.src = product.images[imageIndex];
+          dotArr[imageIndex].classList.add("active");
+          dotArr[product.images.length - 1].classList.remove("active");
         } else {
           imageIndex += 1;
           newImage.src = product.images[imageIndex];
           dotArr[imageIndex].classList.add("active");
-          prevButton.disabled = false;
           dotArr[imageIndex - 1].classList.remove("active");
         }
       }
