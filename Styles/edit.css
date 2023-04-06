@@ -1,0 +1,40 @@
+.edit-container {
+  position: relative;
+}
+
+.input-container {
+  width: 50%;
+}
+
+input {
+  width: 70%;
+}
+
+.product-title,
+.product-price,
+.product-discount,
+.product-rating,
+.product-stock,
+.product-brand,
+.product-category,
+.product-thumbnail,
+.product-images {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 10px;
+}
+
+.product-description {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  position: absolute;
+  bottom: 10px;
+  right: 50px;
+}

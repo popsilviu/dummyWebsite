@@ -17,7 +17,6 @@ function productDetails() {
     const brand = document.querySelector('.product-brand');
     const stock = document.querySelector('.product-stock');
     const newImageSection = document.querySelector('.image-container');
-    const compareButton = document.querySelector('.btn-compare');
 
     pageTitle.innerText = product.title + ' - Details';
     title.innerText = product.title;
@@ -41,15 +40,30 @@ function productDetails() {
 
     createImageSlider(product, newImageSection);
 
-    compareButton.addEventListener(
-      'click',
-      () => (location.href = `compareProducts.html?productId=${product.id}`)
-    );
+    function compareProducts() {
+      const compareButton = document.querySelector('.btn-compare');
+      compareButton.addEventListener(
+        'click',
+        () => (location.href = `compareProducts.html?productId=${product.id}`)
+      );
+    }
+
+    compareProducts();
   }
 
   fetch(`${apiUrl}/${productId}`)
     .then((res) => res.json())
     .then(displayProductDetails);
+
+  function editProduct() {
+    const editBtn = document.querySelector('.btn-edit');
+    editBtn.addEventListener(
+      'click',
+      () => (location.href = `editProduct.html?productId=${productId}`)
+    );
+  }
+
+  editProduct();
 
   function deleteProduct() {
     const deleteBtn = document.querySelector('.btn-delete');
