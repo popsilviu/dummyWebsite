@@ -19,12 +19,12 @@ cartIcon.addEventListener("mouseover", () => {
 });
 
 cartIcon.addEventListener("mouseleave", () => {
-  if (cartWindow.classList.contains("hide"))
-    setTimeout(() => {
-      if (cartWindow.inWindow === 0) {
-        cartWindow.classList.add("hide");
-      }
-    }, 500);
+  if(cartWindow.classList.contains('hide'))
+  setTimeout(() => {
+    if (cartWindow.inWindow === 0) {
+      cartWindow.classList.add("hide");
+    }
+  }, 500);
 });
 
 cartWindow.addEventListener("mouseover", () => {
@@ -38,7 +38,7 @@ cartWindow.addEventListener("mouseleave", () => {
 
 //h2 -
 const titleWindowCart = document.createElement("h2");
-titleWindowCart.innerText = "SHOPPING CART";
+titleWindowCart.innerText = "Shopping Cart";
 cartWindow.appendChild(titleWindowCart);
 //div - cart wrapper
 const cartWrapper = document.createElement("div");
@@ -72,8 +72,8 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
-    console.log('Lista cu produce: ', products);
-    products.forEach((product) => {
+   
+       products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
         tagElement.innerText = text;
@@ -86,14 +86,13 @@ getData().then((products) => {
       const newTextSection = document.createElement("section");
       const newPriceBoxSection = document.createElement("section");
       const newBuySection = document.createElement("section");
-    
+      
       newArticle.setAttribute("id", product.id);
       newImageSection.classList.add("image-container");
       newTextSection.classList.add("text-container");
       newPriceBoxSection.classList.add("price-container");
       newBuySection.classList.add("buy-container");
-      // modal.classList.add('myModal');
-      // modalContent.classList.add('modal-content');
+      
 
       const newImage = document.createElement('img');
       const prevButton = document.createElement('button');
@@ -166,16 +165,7 @@ getData().then((products) => {
 
       
 
-        let cartSumPrice="Suma totala:";
-
         
-      //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
-      //     cartSumPrice.innerHTML+="0";
-        
-      
-
-      // newBuySection.append(addToCart);
-
       //task 10 - Toni:
         
       
@@ -238,44 +228,42 @@ getData().then((products) => {
       };
 
       let prodToCart = {
-        name: product.title,
-        id: product.id,
-        image: newImage.src,
-        count: 1,
-        price: calculateDiscountedPrice(product.price),
-        unitPrice: product.price,
+         name: product.title,
+         id: product.id,
+         image: newImage.src,
+         count: 1,
+         price: calculateDiscountedPrice(product.price),
+         unitPrice: product.price,
       };
-
-      function updateProductsToArray(product) {
+     
+      function updateProductsToArray(prodToCart) {
         for (let i = 0; i < productsInCart.length; i++) {
           if (productsInCart[i].id === product.id) {
-            productsInCart[i].count += 1;
-            productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
-            return;
-          }
-        }
-        productsInCart.push(prodToCart);
-        updateProductsToShoppingCart();
-      }
-
-      let countTheSumPrice = function () {
+             productsInCart[i].count += 1;
+             return;
+           }
+         }
+         productsInCart.push(prodToCart);
+         updateProductsToShoppingCart();
+       }
+      
+       let countTheSumPrice = function () { 
         let sum = 0;
         productsInCart.forEach((product) => {
           sum += Number(product.price * product.count);
         });
-        //return parseInt(sum) ;
         return sum.toFixed(2);
       };
-
-      let updateProductsToShoppingCart = function () {
-        if (productsInCart.length > 0) {
+      
+        let updateProductsToShoppingCart = function () {  
+              if (productsInCart.length > 0) {
           let result = productsInCart.map((product) => {
-            return `
+                return `
                   <li class="cart-li">
                     <img class="cart-wrapper-img" src="${product.image}">
                     <h5 class="item-cart-title">${product.name}</h5>
                     <div class="box-price-quantity">
-                      <h6 class="item-cart-price">$${product.price}</h6>
+                      <h6 class="item-cart-price">$${(product.price*product.count).toFixed(2)}</h6>
                       <div class="quantity">
                         <button class="button-minus" data-id=${product.id}> - </button>
                         <span class="countOfProduct">${product.count}</span>
@@ -283,44 +271,43 @@ getData().then((products) => {
                       </div>
                     </div>
                   </li>`;
-          });
+              });
 
           cartWrapper.innerHTML = result.join("");
-          //document.querySelector('.checkout').classList.remove('hidden');
+            
           total.innerHTML = "TOTAL: $" + countTheSumPrice();
         } else {
-          total.innerHTML = "Total : $0.00 ";
-        }
+              total.innerHTML = "Total : $0.00 ";
+            }
       };
 
       cartWrapper.addEventListener("click", (e) => {
         // Last
         const isPlusButton = e.target.classList.contains("button-plus");
         const isMinusButton = e.target.classList.contains("button-minus");
-        if (isPlusButton || isMinusButton) {
-          for (let i = 0; i < productsInCart.length; i++) {
+            if (isPlusButton || isMinusButton) {
+              for (let i = 0; i < productsInCart.length; i++) {
             if (productsInCart[i].id == product.id) {
-              if (isPlusButton) {
-                productsInCart[i].count += 1;
-                console.log("count=", productsInCart.count);
-              } else if (isMinusButton) {
+                  if (isPlusButton) {
+                     productsInCart[i].count += 1;
+                    
+                    } else if (isMinusButton) {
                 productsInCart[i].count -= 1;
+                  }
+                  updateProductsToShoppingCart();
+                }
+                if (productsInCart[i].count <= 0) {
+                  productsInCart.splice(i, 1);
+                 // updateProductsToArray(productsInCart);
+                  updateProductsToShoppingCart();
+                }
               }
-              productsInCart[i].price = productsInCart[i].price * productsInCart[i].count;
+          //     updateProductsToArray();
+            
             }
-            if (productsInCart[i].count <= 0) {
-              productsInCart.splice(i, 1);
-            }
-          }
-          updateProductsToShoppingCart();
-        }
-      });
+           });
 
-      //  isPlusButton.addEventListener("click", incCount);
-      //  isMinusButton.addEventListener('click', decCount);
-      //  function incCount(){
-      //   product.count += 1;
-      // }
+        
     });
   }
 });
