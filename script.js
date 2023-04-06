@@ -298,6 +298,8 @@ getData().then((products) => {
                 }
                 if (productsInCart[i].count <= 0) {
                   productsInCart.splice(i, 1);
+                  console.log(productsInCart.splice(i, 1))
+                  cartWrapper.innerHTML = '';
                  // updateProductsToArray(productsInCart);
                   updateProductsToShoppingCart();
                 }
