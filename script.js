@@ -259,15 +259,15 @@ getData().then((products) => {
               if (productsInCart.length > 0) {
           let result = productsInCart.map((product) => {
                 return `
-                  <li class="cart-li">
+                  <li class="cart-li-${product.id}">
                     <img class="cart-wrapper-img" src="${product.image}">
                     <h5 class="item-cart-title">${product.name}</h5>
                     <div class="box-price-quantity">
                       <h6 class="item-cart-price">$${(product.price*product.count).toFixed(2)}</h6>
                       <div class="quantity">
-                        <button class="button-minus" data-id=${product.id}> - </button>
+                        <button class="button-minus-${product.id}"> - </button>
                         <span class="countOfProduct">${product.count}</span>
-                        <button class="button-plus" data-id=${product.id}> + </button>
+                        <button class="button-plus-${product.id}"> + </button>
                       </div>
                     </div>
                   </li>`;
@@ -283,8 +283,8 @@ getData().then((products) => {
 
       cartWrapper.addEventListener("click", (e) => {
         // Last
-        const isPlusButton = e.target.classList.contains("button-plus");
-        const isMinusButton = e.target.classList.contains("button-minus");
+        const isPlusButton = e.target.classList.contains(`button-plus-${product.id}`);
+        const isMinusButton = e.target.classList.contains(`button-minus-${product.id}`);
             if (isPlusButton || isMinusButton) {
               for (let i = 0; i < productsInCart.length; i++) {
             if (productsInCart[i].id == product.id) {
@@ -299,7 +299,6 @@ getData().then((products) => {
                 if (productsInCart[i].count <= 0) {
                   productsInCart.splice(i, 1);
                   console.log(productsInCart.splice(i, 1))
-                  cartWrapper.innerHTML = '';
                  // updateProductsToArray(productsInCart);
                   updateProductsToShoppingCart();
                 }
@@ -308,8 +307,6 @@ getData().then((products) => {
             
             }
            });
-
-        
     });
   }
 });
