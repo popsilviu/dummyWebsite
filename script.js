@@ -62,7 +62,6 @@ cartWindow.appendChild(viewCart);
 
 let productsInCart = []; // Products array
 console.log(productsInCart);
-console.log(productsInCart.entries());
 
 
 
