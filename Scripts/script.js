@@ -59,6 +59,10 @@ getData().then((products) => {
       productsList.appendChild(newArticle);
 
       newTextSection.addEventListener('click', productDetails);
+
+      function productDetails() {
+        location.href = `productDetails.html?productId=${product.id}`;
+      }
     });
   }
 });

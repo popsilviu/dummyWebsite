@@ -50,6 +50,26 @@ function productDetails() {
   fetch(`${apiUrl}/${productId}`)
     .then((res) => res.json())
     .then(displayProductDetails);
+
+  function deleteProduct() {
+    const deleteBtn = document.querySelector('.btn-delete');
+    deleteBtn.addEventListener('click', handleDeleteProduct);
+
+    function handleDeleteProduct(e) {
+      if (confirm('Are you sure you want to delete this product?')) {
+        fetch(`${apiUrl}/${productId}`, {
+          method: 'DELETE',
+        })
+          .then((res) => res.json())
+          .then(() => {
+            e.target.parentNode.remove();
+            location.href = 'index.html';
+          });
+      }
+    }
+  }
+
+  deleteProduct();
 }
 
 productDetails();

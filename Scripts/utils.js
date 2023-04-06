@@ -8,7 +8,3 @@ function calculateDiscountedPrice(product) {
     product.price
   ).toFixed(2));
 }
-
-function productDetails() {
-  location.href = `productDetails.html?productId=${product.id}`;
-}
