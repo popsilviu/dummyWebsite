@@ -25,7 +25,10 @@ class LocalCart {
       mapItem.quantity += 1;
       cart.set(id, mapItem);
     } else cart.set(id, item);
-    localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
+    localStorage.setItem(
+      LocalCart.key,
+      JSON.stringify(Object.fromEntries(cart))
+    );
     updateCartUI();
   }
 
@@ -39,7 +42,11 @@ class LocalCart {
       } else cart.delete(id);
     }
     if (cart.length === 0) localStorage.clear();
-    else localStorage.setItem(LocalCart.key, JSON.stringify(Object.fromEntries(cart)));
+    else
+      localStorage.setItem(
+        LocalCart.key,
+        JSON.stringify(Object.fromEntries(cart))
+      );
     updateCartUI();
   }
 }
@@ -61,7 +68,8 @@ cartIcon.appendChild(cartWindow);
 cartWindow.inWindow = 0;
 
 cartIcon.addEventListener("mouseover", () => {
-  if (cartWindow.classList.contains("hide")) cartWindow.classList.remove("hide");
+  if (cartWindow.classList.contains("hide"))
+    cartWindow.classList.remove("hide");
 });
 
 cartIcon.addEventListener("mouseleave", () => {
@@ -106,8 +114,7 @@ viewCart.setAttribute("class", "view-cart");
 viewCart.innerText = "view-cart";
 cartWindow.appendChild(viewCart);
 
-let productsInCart=[];
-
+let productsInCart = [];
 
 async function getData() {
   let data = await fetch("http://localhost:3000/products");
@@ -116,7 +123,7 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
-    console.log('Lista cu produce: ', products);
+    console.log("Lista cu produce: ", products);
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
@@ -142,36 +149,36 @@ getData().then((products) => {
       // modal.classList.add('myModal');
       // modalContent.classList.add('modal-content');
 
-      const newImage = document.createElement('img');
-      const prevButton = document.createElement('button');
-      const nextButton = document.createElement('button');
-      const dotContainer = document.createElement('div');
+      const newImage = document.createElement("img");
+      const prevButton = document.createElement("button");
+      const nextButton = document.createElement("button");
+      const dotContainer = document.createElement("div");
 
       let imageIndex = 0;
       newImage.src = product.images[imageIndex];
       prevButton.innerText = "<";
       nextButton.innerText = ">";
 
-      prevButton.classList.add('prev-btn');
-      nextButton.classList.add('next-btn');
-      dotContainer.classList.add('dot-container');
+      prevButton.classList.add("prev-btn");
+      nextButton.classList.add("next-btn");
+      dotContainer.classList.add("dot-container");
 
-      prevButton.addEventListener('click', previousImage);
-      nextButton.addEventListener('click', nextImage);
+      prevButton.addEventListener("click", previousImage);
+      nextButton.addEventListener("click", nextImage);
       createDotsForImages();
 
       let dotArr = Array.from(dotContainer.childNodes);
-      dotArr[0].classList.add('active');
+      dotArr[0].classList.add("active");
 
       function createDotsForImages() {
         for (let i = 0; i < product.images.length; i++) {
-          const dot = document.createElement('span');
-          dot.classList.add('dot');
+          const dot = document.createElement("span");
+          dot.classList.add("dot");
           dotContainer.append(dot);
-          dot.addEventListener('click', () => {
+          dot.addEventListener("click", () => {
             newImage.src = product.images[i];
-            dotArr.forEach((elem) => elem.classList.remove('active'));
-            dotArr[i].classList.add('active');
+            dotArr.forEach((elem) => elem.classList.remove("active"));
+            dotArr[i].classList.add("active");
           });
         }
       }
@@ -180,13 +187,13 @@ getData().then((products) => {
         if (imageIndex === 0) {
           imageIndex = product.images.length - 1;
           newImage.src = product.images[imageIndex];
-          dotArr[imageIndex].classList.add('active');
-          dotArr[0].classList.remove('active');
+          dotArr[imageIndex].classList.add("active");
+          dotArr[0].classList.remove("active");
         } else {
           imageIndex -= 1;
           newImage.src = product.images[imageIndex];
-          dotArr[imageIndex].classList.add('active');
-          dotArr[imageIndex + 1].classList.remove('active');
+          dotArr[imageIndex].classList.add("active");
+          dotArr[imageIndex + 1].classList.remove("active");
         }
       }
 
@@ -194,13 +201,13 @@ getData().then((products) => {
         if (imageIndex === product.images.length - 1) {
           imageIndex = 0;
           newImage.src = product.images[imageIndex];
-          dotArr[imageIndex].classList.add('active');
-          dotArr[product.images.length - 1].classList.remove('active');
+          dotArr[imageIndex].classList.add("active");
+          dotArr[product.images.length - 1].classList.remove("active");
         } else {
           imageIndex += 1;
           newImage.src = product.images[imageIndex];
-          dotArr[imageIndex].classList.add('active');
-          dotArr[imageIndex - 1].classList.remove('active');
+          dotArr[imageIndex].classList.add("active");
+          dotArr[imageIndex - 1].classList.remove("active");
         }
       }
 
@@ -234,108 +241,218 @@ getData().then((products) => {
       //     modal.style.display = "none";
       //   }
 
-        let cartSumPrice="Suma totala:";
+      let cartSumPrice = "Suma totala:";
 
-        let prodToCart={
-         name: product.title,
-         id: product.id,
-         image: newImage.src,
-         count:1,
-         price: calculateDiscountedPrice(product.price),
-         unitPrice: product.price
-        }
-     
+      let prodToCart = {
+        name: product.title,
+        id: product.id,
+        image: newImage.src,
+        count: 1,
+        price: calculateDiscountedPrice(product.price),
+        unitPrice: product.price,
+      };
 
-        function updateProductsToArray(product){
-         for (let i=0; i<productsInCart.length; i++){
-           if(productsInCart[i].id === product.id){
-             productsInCart[i].count+=1;
-             productsInCart[i].price = productsInCart[i].count * productsInCart[i].unitPrice;
-             return;
-           }
-         }
-         productsInCart.push(prodToCart);
-         
-        updateProductsToShoppingCart(prodToCart.count);
-       }
-
-        let updateProductsToShoppingCart = (count)=>{
-         
-
+      function updateProductsToArray(product) {
+        for (let i = 0; i < productsInCart.length; i++) {
+          if (productsInCart[i].id === product.id) {
+            productsInCart[i].count += 1;
+            productsInCart[i].price =
+              productsInCart[i].count * productsInCart[i].unitPrice;
+            return;
           }
+        }
+        productsInCart.push(prodToCart);
 
-        
+        updateProductsToShoppingCart(prodToCart.count);
+      }
+
+      let updateProductsToShoppingCart = (count) => {};
+
       //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
       //     cartSumPrice.innerHTML+="0";
-        
-      
 
       // newBuySection.append(addToCart);
 
       //task 10 - Toni:
-        
+
       newTextSection.append(createElement("h2", product.title));
-      
-      
-      const modalDetails = createElement('div');
-      const openButton = createElement('button');
-      const closeButton = createElement('button');
-      const priceDetails = createElement('div');
-      priceDetails.classList.add('product-details');
+
+      const modalDetails = createElement("div");
+      const openButton = createElement("button");
+      const closeButton = createElement("button");
+      const priceDetails = createElement("div");
+      const modalHeader = createElement("div");
+      const modalFooter = createElement("div");
+      const modalPrice = createElement("span");
+      const modalCart = createElement("button");
+      const modalImageContainer = createElement("div");
+      const modalImage = document.createElement("img");
+      const modalPrev = document.createElement("button");
+      const modalNext = document.createElement("button");
+      const modalDots = document.createElement("div");
+
+      let modalIndex = 0;
+      modalImage.src = product.images[modalIndex];
+
+      // newImage.src = product.images[imageIndex];
+      modalPrev.innerText = "<";
+      modalNext.innerText = ">";
+      modalImageContainer.classList.add("modal-container");
+      modalPrev.classList.add("modal-prev");
+      modalNext.classList.add("modal-next");
+      modalDots.classList.add("dotM-container");
+      modalImageContainer.innerText = " ";
+
+      modalDotsForImages();
+
+      let modalArr = Array.from(modalDots.childNodes);
+      modalArr[0].classList.add("active");
+
+      function modalPreviousImage() {
+        if (modalIndex === 0) {
+          modalIndex = product.images.length - 1;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[0].classList.remove("active");
+        } else {
+          modalIndex -= 1;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[modalIndex + 1].classList.remove("active");
+        }
+      }
+      function modalNextImage() {
+        if (modalIndex === product.images.length - 1) {
+          modalIndex = 0;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[product.images.length - 1].classList.remove("active");
+        } else {
+          modalIndex += 1;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[modalIndex - 1].classList.remove("active");
+        }
+      }
+      modalPrev.addEventListener("click", modalPreviousImage);
+      modalNext.addEventListener("click", modalNextImage);
+      function modalDotsForImages() {
+        for (let i = 0; i < product.images.length; i++) {
+          const dotM = document.createElement("span");
+          dotM.classList.add("dot-modal");
+          modalDots.append(dotM);
+          dotM.addEventListener("click", () => {
+            newImage.src = product.images[i];
+            modalArr.forEach((elem) => elem.classList.remove("active"));
+            modalArr[i].classList.add("active");
+          });
+        }
+      }
+
+      // prevModalImage.innerText =
+      modalImage.classList.add("modal-image");
+      priceDetails.classList.add("product-details");
+      modalHeader.classList.add("modal-header");
+      modalFooter.classList.add("modal-footer");
+      modalPrice.classList.add("modal-price");
+      modalCart.classList.add("modal-cart");
       priceDetails.innerText = " ";
-      
-      priceDetails.append (createElement('p', " "), 
-      createElement("p", "Price:  " + product.price + "$", 'text-decoration: line-through'),
-      createElement("p", "-" + product.discountPercentage + "%"),
-      createElement("p", (product.price - (product.price * product.discountPercentage / 100 )).toFixed(2) + " $")) ;
+      modalHeader.innerText = " ";
+      modalFooter.innerText = " ";
+      modalPrice.innerText = " ";
+      modalCart.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
+      modalCart.onclick = function () {
+        updateProductsToArray(prodToCart);
+        console.log(productsInCart);
+      };
+
+      priceDetails.append(
+        createElement("p", " "),
+        createElement(
+          "p",
+          "Price:  " + product.price + "$",
+          "text-decoration: line-through"
+        ),
+        createElement("p", "-" + product.discountPercentage + "%"),
+        createElement(
+          "p",
+          (
+            product.price -
+            (product.price * product.discountPercentage) / 100
+          ).toFixed(2) + " $"
+        )
+      );
 
       // modalDetails.classList.add('modal-details');
-      modalDetails.setAttribute('class', 'modal-details hide')
-      newTextSection.append(modalDetails,openButton);
-      openButton.classList.add('open-button')
-      openButton.innerText= 'View more details';
-      
-      closeButton.classList.add('close-button')
-      closeButton.innerText= 'Close';
-      modalDetails.innerText='';
+      modalDetails.setAttribute("class", "modal-details hide");
+      newTextSection.append(modalDetails, openButton);
+
+      modalHeader.append(closeButton, createElement("div", "Product Details"));
+      openButton.classList.add("open-button");
+      openButton.innerText = "View more details";
+      modalFooter.append(modalPrice, modalCart);
+      modalPrice.append(
+        createElement("p", " "),
+        createElement(
+          "p",
+          "Price:  " + product.price + "$",
+          "text-decoration: line-through"
+        ),
+        createElement("p", "-" + product.discountPercentage + "%"),
+        createElement(
+          "p",
+          (
+            product.price -
+            (product.price * product.discountPercentage) / 100
+          ).toFixed(2) + " $"
+        )
+      );
+      closeButton.classList.add("close-button");
+      closeButton.innerText = "x";
+      modalDetails.innerText = "";
       newPriceBoxSection.append(priceDetails);
       modalDetails.inWindow = 0;
-      openButton.addEventListener('click', () => 
-      {
-        if (modalDetails.classList.contains('hide')) { modalDetails.classList.remove('hide') ,openButton.classList.add('hide')};
+      openButton.addEventListener("click", () => {
+        if (modalDetails.classList.contains("hide")) {
+          modalDetails.classList.remove("hide"),
+            openButton.classList.add("hide");
+        }
       });
 
-      closeButton.addEventListener('click', () =>
-      {
-        if(modalDetails.inWindow === 0)  {
-          modalDetails.classList.add('hide') , openButton.classList.remove('hide')
+      closeButton.addEventListener("click", () => {
+        if (modalDetails.inWindow === 0) {
+          modalDetails.classList.add("hide"),
+            openButton.classList.remove("hide");
         }
-      })
+      });
 
-      
-
-      modalDetails.append(createElement('p', product.description), createElement('br'),
-        createElement('p', `In stock:   ${product.stock}` + ' left'),
-        createElement('p', `Rating: ${product.rating}`),
-        closeButton);
-        // task 10 done.
-
+      modalDetails.append(
+        modalHeader,
+        modalImageContainer,
+        modalDots,
+        createElement("p", product.description),
+        createElement("br"),
+        createElement("p", `In stock:   ${product.stock}` + " left"),
+        createElement("p", `Rating:    ${product.rating}`),
+        modalFooter
+      );
+      modalImageContainer.append(modalPrev, modalImage, modalNext);
+      // task 10 done.
 
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection); // am scos , newBuySection, modal - create de alexandra
       productsList.appendChild(newArticle);
 
       // Adaugate acum de Nicu
       const cartButton = document.createElement("button");
-      cartButton.classList.add('buy-btn');
+      cartButton.classList.add("buy-btn");
       cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
       cartButton.setAttribute("id", "cart-button-container");
       newPriceBoxSection.appendChild(cartButton);
-      cartButton.onclick = function() {
+      cartButton.onclick = function () {
         updateProductsToArray(prodToCart);
         console.log(productsInCart);
-   //     updateProductsToShoppingCart();
-      }
-      
+        //     updateProductsToShoppingCart();
+      };
 
       // cartButton.forEach((btn) => {
       //   btn.addEventListener(`click`,console.log(`Merge`));
@@ -375,14 +492,14 @@ getData().then((products) => {
 
         const product = products.filter((product) => product.id == id);
 
-        const modal = document.createElement('div');
-        const titleModal = document.createElement('h1');
-        const exitBtn = document.createElement('button');
-        const price = document.createElement('span');
-        const modalImage = document.createElement('div');
+        const modal = document.createElement("div");
+        const titleModal = document.createElement("h1");
+        const exitBtn = document.createElement("button");
+        const price = document.createElement("span");
+        const modalImage = document.createElement("div");
 
-        modal.classList.add('modalProduct');
-        modalImage.classList.add('modalImage');
+        modal.classList.add("modalProduct");
+        modalImage.classList.add("modalImage");
 
         modalImage.append(newImage);
       }
@@ -390,9 +507,9 @@ getData().then((products) => {
   }
 });
 
-
 function addItemFunction(e) {
-  const id = e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
+  const id =
+    e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
   const img = e.target.parentElement.parentElement.previousElementSibling.src;
   const name = e.target.parentElement.previousElementSibling.textContent;
   const desc = e.target.parentElement.children[0].textContent;
@@ -421,7 +538,7 @@ function addItemFunction(e) {
 //       total = Math.round(total*100)/100
 //       cartItem.innerHTML =
 //       `
-//       <img src="${value.img}"> 
+//       <img src="${value.img}">
 //                      <div class="details">
 //                          <h3>${value.name}</h3>
 //                          <p>${value.desc}
@@ -448,4 +565,3 @@ function addItemFunction(e) {
 //   cartIcon.classList.remove('non-empty')
 // }
 // document.addEventListener('DOMContentLoaded', ()=>{updateCartUI()})
-  
