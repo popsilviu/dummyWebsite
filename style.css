@@ -131,7 +131,7 @@ p {
 }
 
 header {
-  background-color: lightgray;
+  background-color: #ded8ce;
   display: flex;
   align-items: baseline;
   padding: 10px;
@@ -143,6 +143,8 @@ header {
   margin: 4px 2px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+  background-color: #f7e7ce;
 }
 
 .filter-dropdown {
@@ -152,16 +154,18 @@ header {
 .filter-dropdown-menu {
   z-index: 1;
   position: absolute;
-  width: 200px;
-  height: 440px;
+  width: 611px;
+  height: 138px;
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
-  background-color: white;
+  background-color: #f7e7ce;
   pointer-events: none;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  font-family: Verdana;
+  display: flex;
 }
 
 .filter-dropdown.active > .filter-button + .filter-dropdown-menu {
@@ -175,4 +179,10 @@ li {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
 }
