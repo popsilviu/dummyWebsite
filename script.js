@@ -73,7 +73,7 @@ cartIcon.addEventListener("mouseover", () => {
 });
 
 cartIcon.addEventListener("mouseleave", () => {
-  // if(wholeCartWindow.classList.contains('hide'))
+  if(cartWindow.classList.contains('hide'))
   setTimeout(() => {
     if (cartWindow.inWindow === 0) {
       cartWindow.classList.add("hide");
@@ -111,7 +111,7 @@ cartWindow.appendChild(checkout);
 //div - view cart
 const viewCart = document.createElement("div");
 viewCart.setAttribute("class", "view-cart");
-viewCart.innerText = "view-cart";
+viewCart.innerText = "  View-cart";
 cartWindow.appendChild(viewCart);
 
 let productsInCart = [];
@@ -131,23 +131,19 @@ getData().then((products) => {
         return tagElement;
       }
 
-      // console.log(product);
       const productsList = document.querySelector(".products-container");
       const newArticle = document.createElement("article");
       const newImageSection = document.createElement("section");
       const newTextSection = document.createElement("section");
       const newPriceBoxSection = document.createElement("section");
       const newBuySection = document.createElement("section");
-      // const modal=document.createElement('section');
-      // const modalContent=document.createElement('section');
-
+      
       newArticle.setAttribute("id", product.id);
       newImageSection.classList.add("image-container");
       newTextSection.classList.add("text-container");
       newPriceBoxSection.classList.add("price-container");
       newBuySection.classList.add("buy-container");
-      // modal.classList.add('myModal');
-      // modalContent.classList.add('modal-content');
+      
 
       const newImage = document.createElement("img");
       const prevButton = document.createElement("button");
@@ -183,6 +179,10 @@ getData().then((products) => {
         }
       }
 
+      function calculateDiscountedPrice() {
+        return (((100 - product.discountPercentage) / 100) * product.price).toFixed(2);
+      }
+
       function previousImage() {
         if (imageIndex === 0) {
           imageIndex = product.images.length - 1;
@@ -211,68 +211,12 @@ getData().then((products) => {
         }
       }
 
+      
       newImageSection.append(newImage, prevButton, nextButton, dotContainer);
 
-      // Alexandra!!!!!!!!!//
+      
 
-      // const buyButton=document.createElement('button');
-      // const addToCart=document.createElement('button');
-      // buyButton.innerHTML="Buy";
-      // addToCart.innerHTML="Add to Cart";
-      // buyButton.classList.add('buy-btn');
-      // addToCart.classList.add('add-btn');
-
-      //   const closeButton=document.createElement("button");
-      //   closeButton.classList.add('close-btn');
-
-      //   closeButton.innerHTML='&times;';
-      //   modal.append(closeButton);
-
-      //   buyButton.onclick = function() {
-      //     modal.style.display = "block";
-      //   }
-      //   addToCart.onclick = function() {
-      //     modal.style.display = "block";
-      //     updateProductsToArray(prodToCart);
-      //     updateProductsToShoppingCart();
-      //   }
-
-      //   closeButton.onclick = function() {
-      //     modal.style.display = "none";
-      //   }
-
-      let cartSumPrice = "Suma totala:";
-
-      let prodToCart = {
-        name: product.title,
-        id: product.id,
-        image: newImage.src,
-        count: 1,
-        price: calculateDiscountedPrice(product.price),
-        unitPrice: product.price,
-      };
-
-      function updateProductsToArray(product) {
-        for (let i = 0; i < productsInCart.length; i++) {
-          if (productsInCart[i].id === product.id) {
-            productsInCart[i].count += 1;
-            productsInCart[i].price =
-              productsInCart[i].count * productsInCart[i].unitPrice;
-            return;
-          }
-        }
-        productsInCart.push(prodToCart);
-
-        updateProductsToShoppingCart(prodToCart.count);
-      }
-
-      let updateProductsToShoppingCart = (count) => {};
-
-      //     document.querySelector('.modal-content').innerHTML="Your shopping cart is empty";
-      //     cartSumPrice.innerHTML+="0";
-
-      // newBuySection.append(addToCart);
-
+        
       //task 10 - Toni:
 
       newTextSection.append(createElement("h2", product.title));
@@ -439,129 +383,100 @@ getData().then((products) => {
       modalImageContainer.append(modalPrev, modalImage, modalNext);
       // task 10 done.
 
-      newArticle.append(newImageSection, newTextSection, newPriceBoxSection); // am scos , newBuySection, modal - create de alexandra
+      newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
       productsList.appendChild(newArticle);
 
-      // Adaugate acum de Nicu
       const cartButton = document.createElement("button");
       cartButton.classList.add("buy-btn");
       cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
       cartButton.setAttribute("id", "cart-button-container");
-      newPriceBoxSection.appendChild(cartButton);
+      newArticle.append(cartButton);
       cartButton.onclick = function () {
         updateProductsToArray(prodToCart);
-        console.log(productsInCart);
-        //     updateProductsToShoppingCart();
+        updateProductsToShoppingCart();
       };
 
-      // cartButton.forEach((btn) => {
-      //   btn.addEventListener(`click`,console.log(`Merge`));
-      // });
-      // Punctul 7 din lista de task-uri
+      let prodToCart = {
+         name: product.title,
+         id: product.id,
+         image: newImage.src,
+         count: 1,
+         price: calculateDiscountedPrice(product.price),
+         unitPrice: product.price,
+      };
+     
+      function updateProductsToArray(prodToCart) {
+        for (let i = 0; i < productsInCart.length; i++) {
+          if (productsInCart[i].id === product.id) {
+             productsInCart[i].count += 1;
+             return;
+           }
+         }
+         productsInCart.push(prodToCart);
+         updateProductsToShoppingCart();
+       }
+      
+       let countTheSumPrice = function () { 
+        let sum = 0;
+        productsInCart.forEach((product) => {
+          sum += Number(product.price * product.count);
+        });
+        return sum.toFixed(2);
+      };
+      
+        let updateProductsToShoppingCart = function () {  
+              if (productsInCart.length > 0) {
+          let result = productsInCart.map((product) => {
+                return `
+                  <li class="cart-li-${product.id}">
+                    <img class="cart-wrapper-img" src="${product.image}">
+                    <h5 class="item-cart-title">${product.name}</h5>
+                    <div class="box-price-quantity">
+                      <h6 class="item-cart-price">$${(product.price*product.count).toFixed(2)}</h6>
+                      <div class="quantity">
+                        <button class="button-minus-${product.id}"> - </button>
+                        <span class="countOfProduct">${product.count}</span>
+                        <button class="button-plus-${product.id}"> + </button>
+                      </div>
+                    </div>
+                  </li>`;
+              });
 
-      const detailsArr = Array.from(newPriceBoxSection.childNodes);
+          cartWrapper.innerHTML = result.join("");
+            
+          total.innerHTML = "TOTAL: $" + countTheSumPrice();
+        } else {
+              total.innerHTML = "Total : $0.00 ";
+            }
+      };
 
-      // function calculateDiscountedPrice() {
-      //   if (!product.discountPercentage) {
-      //     detailsArr[2].style.display = 'none';
-
-      //     return;
-      //   } else {
-      //     detailsArr[0].classList.add('price');
-
-      //     return (
-      //       ((100 - product.discountPercentage) / 100) *
-      //       product.price
-      //     ).toFixed(2);
-      //   }
-      // }
-
-      function calculateDiscountedPrice() {
-        return (
-          ((100 - product.discountPercentage) / 100) *
-          product.price
-        ).toFixed(2);
-      }
-
-      newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
-
-      productsList.appendChild(newArticle);
-
-      function createModal(id) {
-        // Product
-
-        const product = products.filter((product) => product.id == id);
-
-        const modal = document.createElement("div");
-        const titleModal = document.createElement("h1");
-        const exitBtn = document.createElement("button");
-        const price = document.createElement("span");
-        const modalImage = document.createElement("div");
-
-        modal.classList.add("modalProduct");
-        modalImage.classList.add("modalImage");
-
-        modalImage.append(newImage);
-      }
+      cartWrapper.addEventListener("click", (e) => {
+        // Last
+        const isPlusButton = e.target.classList.contains(`button-plus-${product.id}`);
+        const isMinusButton = e.target.classList.contains(`button-minus-${product.id}`);
+            if (isPlusButton || isMinusButton) {
+              for (let i = 0; i < productsInCart.length; i++) {
+            if (productsInCart[i].id == product.id) {
+                  if (isPlusButton) {
+                     productsInCart[i].count += 1;
+                    
+                    } else if (isMinusButton) {
+                productsInCart[i].count -= 1;
+                  }
+                  updateProductsToShoppingCart();
+                }
+                if (productsInCart[i].count <= 0) {
+                  productsInCart.splice(i, 1);
+                  console.log(productsInCart.splice(i, 1))
+                 // updateProductsToArray(productsInCart);
+                  updateProductsToShoppingCart();
+                }
+              }
+          //     updateProductsToArray();
+            
+            }
+           });
     });
   }
 });
 
-function addItemFunction(e) {
-  const id =
-    e.target.parentElement.parentElement.parentElement.getAttribute("data-id");
-  const img = e.target.parentElement.parentElement.previousElementSibling.src;
-  const name = e.target.parentElement.previousElementSibling.textContent;
-  const desc = e.target.parentElement.children[0].textContent;
-  let price = e.target.parentElement.children[1].textContent;
-  price = price.replace("Price: $", "");
-  const item = new CartItem(name, desc, img, price);
-  LocalCart.addItemToLocalCart(id, item);
-  console.log(price);
-}
-
-// !!!!!!!!!!!!!!!!!!!FUNCTIA ASTA TREBUIE SA O REZOLVAM!!!!!!!!!!
-
-// function updateCartUI(){
-//   cartWrapper.innerHTML=""
-//   const items = LocalCart.getLocalCartItems()
-//   if(items === null) return
-//   let count = 0
-//   let total = 0
-//   for(const [key, value] of items.entries()){
-//       const cartItem = document.createElement('div')
-//       cartItem.classList.add('cart-item')
-//       let price = value.price*value.quantity
-//       price = Math.round(price*100)/100
-//       count+=1
-//       total += price
-//       total = Math.round(total*100)/100
-//       cartItem.innerHTML =
-//       `
-//       <img src="${value.img}">
-//                      <div class="details">
-//                          <h3>${value.name}</h3>
-//                          <p>${value.desc}
-//                           <span class="quantity">Quantity: ${value.quantity}</span>
-//                              <span class="price">Price: $ ${price}</span>
-//                          </p>
-//                      </div>
-//                      <div class="cancel"><i class="fas fa-window-close"></i></div>
-//       `
-//      cartItem.lastElementChild.addEventListener('click', ()=>{
-//          LocalCart.removeItemFromCart(key)
-//      })
-//       cartWrapper.append(cartItem)
-//   }
-
-//   if(count > 0){
-//       cartIcon.classList.add('non-empty')
-//       let root = document.querySelector(':root')
-//       root.style.setProperty('--after-content', `"${count}"`)
-//       const subtotal = document.querySelector('.subtotal')
-//       subtotal.innerHTML = `SubTotal: $${total}`
-//   }
-//   else
-//   cartIcon.classList.remove('non-empty')
-// }
-// document.addEventListener('DOMContentLoaded', ()=>{updateCartUI()})
