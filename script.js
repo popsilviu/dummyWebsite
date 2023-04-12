@@ -26,44 +26,10 @@ getData().then((products) => {
       const newTextSection = document.createElement("section");
       const newPriceBoxSection = document.createElement("section");
 
-<<<<<<< HEAD
       newArticle.setAttribute("id", product.id);
       newImageSection.classList.add("image-container");
       newTextSection.classList.add("text-container");
       newPriceBoxSection.classList.add("price-container");
-=======
-
-      // Add user comments 
-
-      const newform = document.createElement('form');
-      const newInput = document.createElement('input');
-      const newButton = document.createElement('button');
-      newInput.classList.add('input');
-      newButton.classList.add('comment-button');
-      newButton.innerText = 'Add comment';
-      newform.append(newInput, newButton);
-
-      newButton.addEventListener('click', () => {
-        event.preventDefault();
-        const newComment = document.createElement('div');
-        const commentText = document.createElement('p');
-        commentText.classList.add('comment')
-        commentText.innerText = newInput.value;
-        newInput.value = ' ';
-
-        newComment.append(commentText);
-        newCommentList.append(newComment);
-      });
-
-      const newCommentList = document.createElement('div');
-
-
-
-      newArticle.setAttribute('id', product.id);
-      newImageSection.classList.add('image-container');
-      newTextSection.classList.add('text-container');
-      newPriceBoxSection.classList.add('price-container');
->>>>>>> 59bc1af (Working function for adding user's comments)
 
       const newImage = document.createElement("img");
       const prevButton = document.createElement("button");
@@ -168,6 +134,28 @@ getData().then((products) => {
         ).toFixed(2);
       }
 
+      const newform = document.createElement('form');
+        const newInput = document.createElement('input');
+        const newButton = document.createElement('button');
+        newInput.classList.add('input');
+        newButton.classList.add('comment-button');
+        newButton.innerText = 'Add comment';
+        newform.append(newInput, newButton);
+
+        newButton.addEventListener('click', () => {
+            event.preventDefault();
+            const newComment = document.createElement('div');
+            const commentText = document.createElement('p');
+            commentText.innerText = newInput.value;
+            newInput.value = ' ';
+
+            newComment.append(commentText);
+            newCommentList.append(newComment);
+        });
+
+        const newCommentList = document.createElement('div');
+
+
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection, newform, newCommentList);
 
       productsList.appendChild(newArticle);
@@ -177,17 +165,13 @@ getData().then((products) => {
 
         const product = products.filter((product) => product.id == id);
 
-<<<<<<< HEAD
         const modal = document.createElement("div");
         const titleModal = document.createElement("h1");
         const exitBtn = document.createElement("button");
         const price = document.createElement("span");
         const modalImage = document.createElement("div");
 
-<<<<<<< HEAD
-        modal.classList.add("modalProduct");
-        modalImage.classList.add("modalImage");
-=======
+
           //Add comments
 
         const addCommentButton = document.createElement('button');
@@ -208,18 +192,11 @@ getData().then((products) => {
         });
         
           modal.append(addCommentButton);
-=======
-        const modal = document.createElement('div');
-        const titleModal = document.createElement('h1');
-        const exitBtn = document.createElement('button');
-        const price = document.createElement('span');
-        const modalImage = document.createElement('div');
->>>>>>> 59bc1af (Working function for adding user's comments)
       
         
         modal.classList.add('modalProduct');
         modalImage.classList.add('modalImage');
->>>>>>> 3855117 (add-comments)
+
 
         modalImage.append(newImage);
       }
