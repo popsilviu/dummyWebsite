@@ -91,7 +91,7 @@ getData().then((products) => {
 
       newTextSection.append(
         createElement("h2", product.title),
-        createElement("p", product.description)
+        createElement("p", product.description),
       );
 
       newPriceBoxSection.append(
@@ -99,7 +99,7 @@ getData().then((products) => {
         createElement("p", `Discount: ${product.discountPercentage}`),
         createElement("p", `Discount price: ${calculateDiscountedPrice()}`),
         createElement("p", `Stock: ${product.stock}`),
-        createElement("p", `Rating: ${product.rating}`)
+        createElement("p", `Rating: ${product.rating}`),
       );
 
       // Punctul 7 din lista de task-uri
