@@ -46,7 +46,7 @@ getData().then((products) => {
 
       prevButton.addEventListener('click', previousImage);
       nextButton.addEventListener('click', nextImage);
-      favButton.addEventListener('click', favouriteButton, false);
+      favButton.addEventListener('click', favouriteButton);
 
 
       function previousImage() {
