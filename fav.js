@@ -3,8 +3,6 @@ async function getData() {
     return data.json();
   }
   
-  
-  
   getData().then((products) => {
     if (products) {
       console.log("Lista cu produse: ", products);
