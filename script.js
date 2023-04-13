@@ -479,4 +479,3 @@ getData().then((products) => {
     });
   }
 });
-
