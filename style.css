@@ -188,12 +188,313 @@ img {
   left: 50%; === vrem sa vedem ce se intampla daca  */
 }
 
+<<<<<<< Updated upstream
 .modalProduct button {
+=======
+
+/*Custom cart button of the products item*/
+#cart-button-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+}
+
+#cart-button {
+  z-index: 3;
+  height: 40px;
+  width: 120px;
+  object-fit: contain;
+  mix-blend-mode: color-burn;
+}
+
+/*Cart icon of navigation bar*/
+.navbar {
+  position: fixed;
+  z-index: 4;
+>>>>>>> Stashed changes
   display: flex;
   justify-content: flex-end;
   margin: 5px;
   border-radius: 5px;
   border: solid 1px;
   background-color: red;
+<<<<<<< Updated upstream
   color: white;
 }
+=======
+  border-radius: 50%;
+}
+
+/* Style cart window */
+
+.cart-window-container {
+  z-index: 5;
+  border: solid lightgray 1px;
+  border-top: none;
+  position: fixed;
+  top: 12vh;
+  background-color: #fff;
+  margin-right: 2%;
+  right: 0px;
+  top: 70px;
+}
+
+.cart-window-container h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  text-align: center;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(131, 131, 131, 1) 39%, rgba(188, 188, 188, 1) 59%, rgba(255, 255, 255, 1) 100%);
+  padding: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+.cart-wrapper {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  max-height: 350px;
+  width: 24vw;
+}
+
+.cart-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.cart-wrapper-img {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+[class*="cart-li-"] {
+  display: grid;
+  grid-template-columns: 3fr 4fr 2fr;
+  padding: 5% 2%;
+  align-items: center;
+}
+
+.item-cart-title {
+  padding-left: 20px;
+  margin-left: 0;
+  font-size: 15px;
+}
+
+.item-cart-price {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: larger;
+  padding: 5px;
+  margin-right: 0;
+}
+
+.box-price-quantity {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  margin-right: 0;
+}
+
+.button-minus,
+.button-plus {
+  width: 25px;
+  height: 25px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  border-radius: 25%;
+  border-width: 1px;
+}
+
+.button-plus:hover {
+  background-color: rgb(181, 1, 1);
+  color: #c8c7c7;
+}
+
+.button-minus:hover {
+  background-color: rgb(181, 1, 1);
+  color: #c8c7c7;
+}
+
+.countOfProduct {
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.total {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bolder;
+  font-size: 25px;
+  text-align: right;
+  padding: 5%;
+}
+
+.checkout,
+.view-cart {
+  font-family: "Source Sans Pro", sans-serif;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(40, 37, 37);
+  font-size: large;
+  color: #fff;
+  margin: 10px auto;
+  padding: 10px 15px;
+}
+.view-cart {
+  background-color: #fff;
+  border: 2px solid rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+}
+
+.view-cart:hover {
+  box-shadow: 0 0 20px black;
+}
+
+.checkout:hover {
+  box-shadow: 0 0 20px black;
+}
+
+/* task 10- Toni */
+
+/* .modal-details {
+display: none;
+} */
+.product-details {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 1000;
+}
+.modal-price {
+  font-size: 18px;
+  font-weight: bolder;
+
+}
+.product-details p:nth-child(2)  , .modal-price p:nth-child(2){
+  display: inline;
+}
+.product-details  p:nth-child(3) , .modal-price p:nth-child(3){
+  display:inline;
+  background-color: rgb(14, 14, 217);
+  padding: 1px 1px;
+  border-radius: 0px 0.5rem 0px 0.5rem;
+  color:whitesmoke;
+  margin-left: 3px;
+  font-size: 12px;
+}
+.product-details  p:nth-child(4) , .modal-price p:nth-child(4){
+  font-weight: bolder;
+color: red;
+font-size: 17px;
+}
+
+.open-button {
+  margin-top: 30px;
+}
+
+.modal-details {
+  position: fixed;
+  left: 220px;
+  bottom: 10px;
+  /* overflow:hidden; */
+  z-index: 4;
+  width: 800px;
+  height: 600px;
+  background-color: rgb(145, 145, 145);
+  color: whitesmoke;
+  border: 2px solid black;
+  border-radius: 0.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  /* margin: auto; */
+  box-shadow: -200px 200px 500px 500px rgba(0, 0, 0, 0.594);
+}
+
+.modal-header {
+  border-bottom: 1px solid black;
+  margin-top: 0px;
+}
+.modal-header :nth-child(2) {
+  font-weight: bolder;
+  font-size: 17px;
+  width: 98%;
+  margin-top: 0px;
+  margin-left: 10px;
+  padding-bottom: 10px;
+}
+.modal-container {
+  display: flex;
+  justify-content: center;
+}
+.modal-container img {
+  aspect-ratio: 4/3;
+  margin: 0px;
+  border-radius: 0px;
+}
+.image-container img {
+  aspect-ratio: 4/3;
+}
+.modal-prev {
+  margin-right: 0px;
+  border: 0px ;
+}
+.modal-prev:hover , .modal-next:hover{
+  background-color: cadetblue;
+  border: 2px solid black;
+  cursor: pointer;
+}
+.modal-next {
+  margin-left : 0px;
+  border: 0px;
+}
+.dotM-container {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.dot-modal {
+border-radius: 50%;
+background-color: rgba(211, 211, 211, 0.473);
+height:8px;
+width: 8px;
+margin: 3px;
+}
+
+.dotM-container .active , .dot-modal:hover {
+  background-color:black;
+}
+.close-button {
+  margin-top: 0px;
+font-size: 20px;
+background-color: rgb(83, 84, 84) ;
+float: right;
+font-weight: bolder;
+color: white;
+border: none;
+}
+.modal-image {
+  width: 50%;
+  height: 60%;
+}
+.modal-footer {
+  margin-top: 50px;
+  background-color: red;
+}
+.modal-price {
+  float: left;
+  margin-left: 50px;
+}
+.modal-cart {
+  float: right;
+  margin-right: 20px;
+}
+
+
+/* task 10 done.  */
+
+>>>>>>> Stashed changes
