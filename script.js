@@ -34,7 +34,7 @@ getData().then((products) => {
       newPriceBoxSection.append(
         createElement("p", `Price: ${product.price}`),
         createElement("p", `Discount: ${product.discountPercentage}`),
-        createElement("p", `Discount price: ${calculateDiscountedPrice()}`),
+        createElement("p", `Discount price: ${calculateDiscountedPrice(product)}`),
         createElement("p", `Stock: ${product.stock}`),
         createElement("p", `Rating: ${product.rating}`),
       );
