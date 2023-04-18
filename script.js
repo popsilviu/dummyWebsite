@@ -27,19 +27,16 @@ getData().then((products) => {
       createImageSlider(product, newImageSection);
 
       newTextSection.append(
-        createElement('h2', product.title),
-        createElement('p', product.description)
+        createElement("h2", product.title),
+        createElement("p", product.description),
       );
 
       newPriceBoxSection.append(
-        createElement('p', `Price: ${product.price}`),
-        createElement('p', `Discount: ${product.discountPercentage}`),
-        createElement(
-          'p',
-          `Discount price: ${calculateDiscountedPrice(product)}`
-        ),
-        createElement('p', `Stock: ${product.stock}`),
-        createElement('p', `Rating: ${product.rating}`)
+        createElement("p", `Price: ${product.price}`),
+        createElement("p", `Discount: ${product.discountPercentage}`),
+        createElement("p", `Discount price: ${calculateDiscountedPrice()}`),
+        createElement("p", `Stock: ${product.stock}`),
+        createElement("p", `Rating: ${product.rating}`),
       );
 
       const detailsArr = Array.from(newPriceBoxSection.childNodes);
