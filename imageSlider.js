@@ -3,18 +3,25 @@ function createImageSlider(product, newImageSection) {
   const prevButton = document.createElement('button');
   const nextButton = document.createElement('button');
   const dotContainer = document.createElement('div');
+  const favButton = document.createElement('button');
+
 
   let imageIndex = 0;
   newImage.src = product.images[imageIndex];
   prevButton.innerText = '<';
   nextButton.innerText = '>';
+  favButton.innerText = 'Add to favourite';
+
 
   prevButton.classList.add('prev-btn');
   nextButton.classList.add('next-btn');
   dotContainer.classList.add('dot-container');
+  favButton.classList.add('favourite-btn');
+
 
   prevButton.addEventListener('click', previousImage);
   nextButton.addEventListener('click', nextImage);
+  favButton.addEventListener('click', favouriteButton);
   createDotsForImages();
 
   let dotArr = Array.from(dotContainer.childNodes);
@@ -61,7 +68,29 @@ function createImageSlider(product, newImageSection) {
     }
   }
 
-  newImageSection.append(newImage, prevButton, nextButton, dotContainer);
+  function favouriteButton(e) {
+    e.preventDefault();
+    let data = product
+
+    fetch('http://localhost:3000/favourites', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Favourite Added: ", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+        alert('Product is already in favourites.');
+      });
+  }
+
+
+  newImageSection.append(newImage, prevButton, nextButton, dotContainer, favButton);
 
   newImage.addEventListener('click', productDetails);
 

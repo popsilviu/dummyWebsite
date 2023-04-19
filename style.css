@@ -52,6 +52,12 @@ h1 {
   margin-inline: 6em;
 }
 
+.fav-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
 article {
   box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
   border-radius: 25px;
@@ -125,6 +131,47 @@ img {
 .active,
 .dot:hover {
   background-color: rgb(255, 213, 136);
+}
+
+
+.favourite-btn {
+  background-color: rgb(41, 41, 245);
+  box-shadow: 1px 1px 1px 1px grey;
+  color: white;
+  border-radius: 5px;
+}
+
+.favourite-btn:hover {
+  cursor: grab;
+}
+
+.favourite i {
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(70, 72, 78);
+}
+
+.favourite a {
+  text-decoration: none;
+  padding-right: 1rem;
+  color: rgb(70, 72, 78);
+}
+
+.remove-fav {
+  background-color: rgb(231, 95, 95);
+  box-shadow: 1px 1px 1px 1px grey;
+  color: white;
+  border-radius: 5px;
+}
+
+.remove-fav:hover {
+  cursor: grab;
+}
+
+h3 a {
+  text-decoration: none;
+  color: rgb(88, 91, 99);
+  font-size: xx-large;
 }
 
 /* description of the article container */
