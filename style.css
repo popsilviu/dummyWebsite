@@ -215,6 +215,7 @@ img {
   padding: 5px 10px;
   font-size: 16px;
   margin: 10px;
+  margin-left: 100px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
@@ -258,4 +259,9 @@ li {
   display: flex;
   flex-direction: column;
   margin-right: 20px;
+}
+
+.search-wrapper {
+  margin: 10px;
+  margin-left: 100px;
 }

@@ -10,5 +10,6 @@ getData().then((products) => {
     showProducts(products);
     sortProducts();
     filterProducts();
+    searchProducts();
   }
 });
