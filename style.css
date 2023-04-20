@@ -1,117 +1,83 @@
-/* box-sizing reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+* {
+  margin: 0 auto;
 }
 
-/* reset margin and padding */
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-ul,
-ol,
-li,
-p {
-  margin: 0;
-  padding: 0;
-}
-
-/* reset list-style */
-ul,
-ol {
-  list-style: none;
-}
-
-/* reset hyperlink styles */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Title of the Page */
 h1 {
   text-align: center;
-  font-size: 50px;
-  font-family: monospace;
-  text-transform: uppercase;
-  letter-spacing: 30px;
-  margin: 1em 0 1em 0;
 }
-
-/* container of products */
 
 .products-container {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 40px;
-  margin-inline: 6em;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
 }
 
 article {
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
-  border-radius: 25px;
+  box-shadow: 3px 3px 3px 3px grey;
+  border-radius: 20px;
+  border: 2px solid black;
 }
 
 .products-container article:hover {
-  box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+  box-shadow: 0 0 20px black;
 }
 
-/* container of images */
+.image-container {
+  position: relative;
+  margin: 10px;
+}
 
-.image-container,
 img {
   position: relative;
-}
-
-img {
   width: 100%;
   height: 300px;
-  object-fit: fill;
-  border-radius: 25px;
+  border-radius: 10px;
 }
 
-/* carrousel controls */
 .prev-btn {
-  left: 5px;
-}
-
-.next-btn {
-  right: 5px;
-}
-
-.prev-btn,
-.next-btn {
   position: absolute;
   top: 50%;
+  left: 10px;
   cursor: pointer;
+
   border: none;
   background-color: transparent;
   border-radius: 50%;
+
   padding: 5px;
   width: 40px;
-  color: black;
+
+  color: lightgray;
   font-size: 1.5rem;
-  font-weight: 700;
+}
+
+.next-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+
+  cursor: pointer;
+
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+
+  padding: 5px;
+  width: 40px;
+
+  color: lightgray;
+  font-size: 1.5rem;
 }
 
 .prev-btn:hover,
 .next-btn:hover {
-  background-color: rgba(200, 200, 200, 0.5);
-  color: rgb(255, 213, 136);
+  background-color: rgba(230, 230, 230, 0.5);
 }
 
-/* carousel position indicator */
 .dot-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 15px;
 }
 
 .dot {
@@ -125,76 +91,31 @@ img {
 
 .active,
 .dot:hover {
-  background-color: rgb(255, 213, 136);
+  background-color: gray;
 }
-
-/* description of the article container */
 
 .text-container {
   display: flex;
   flex-direction: column;
+
   height: 150px;
+
   align-items: center;
-  text-align: center;
   margin: 10px;
-}
-
-.text-container>h2 {
-  font-family: monospace;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  text-align: center;
-  margin: 20px 0 0 0;
-}
-
-.text-container>p {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 20px 30px;
-  font-size: 16;
-}
-
-.text-container>p:hover {
-  color: rgb(255, 213, 136);
-}
-
-.text-container>h2 {
-  font-family: monospace;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  text-align: center;
-  margin: 20px 0 0 0;
-}
-
-.text-container>p {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 20px 30px;
-  font-size: 16;
-}
-
-.text-container>p:hover {
-  color: rgb(255, 213, 136);
 }
 
 .price-container,
 .buy-container {
   display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin: 30px;
-  font-family: monospace;
-  font-size: 20px;
+  justify-content: space-around;
+
+  margin: 10px;
 }
 
-.price-container>p {
+p {
   text-align: center;
 }
 
-.price-container>p:hover {
-  transform: scale(1.3);
-  color: rgb(255, 213, 136);
-}
-
-/* Modal Stuff */
 /*Alexandra*/
 
 .buy-btn,

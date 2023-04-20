@@ -119,7 +119,7 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
-    console.log('Lista cu produse: ', products);
+    console.log("Lista cu produce: ", products);
     products.forEach((product) => {
       function createElement(tag, text) {
         const tagElement = document.createElement(tag);
@@ -210,44 +210,173 @@ getData().then((products) => {
       
       newImageSection.append(newImage, prevButton, nextButton, dotContainer);
 
-      newTextSection.append(
-        createElement('h2', product.title),
-        createElement('p', product.description)
-      );
+      
 
-      newPriceBoxSection.append(
-        createElement('p', `Price: ${product.price}`),
-        createElement('p', `Discount: ${product.discountPercentage}`),
-        createElement('p', `Discount price: ${calculateDiscountedPrice()}`),
-        createElement('p', `Stock: ${product.stock}`),
-        createElement('p', `Rating: ${product.rating}`)
-      );
+        
+      //task 10 - Toni:
 
-      // Punctul 7 din lista de task-uri
+      newTextSection.append(createElement("h2", product.title));
 
-      const detailsArr = Array.from(newPriceBoxSection.childNodes);
+      const modalDetails = createElement("div");
+      const openButton = createElement("button");
+      const closeButton = createElement("button");
+      const priceDetails = createElement("div");
+      const modalHeader = createElement("div");
+      const modalFooter = createElement("div");
+      const modalPrice = createElement("span");
+      const modalCart = createElement("button");
+      const modalImageContainer = createElement("div");
+      const modalImage = document.createElement("img");
+      const modalPrev = document.createElement("button");
+      const modalNext = document.createElement("button");
+      const modalDots = document.createElement("div");
 
-      // function calculateDiscountedPrice() {
-      //   if (!product.discountPercentage) {
-      //     detailsArr[2].style.display = 'none';
+      let modalIndex = 0;
+      modalImage.src = product.images[modalIndex];
 
-      //     return;
-      //   } else {
-      //     detailsArr[0].classList.add('price');
+      modalPrev.innerText = "<";
+      modalNext.innerText = ">";
+      modalImageContainer.classList.add("modal-container");
+      modalPrev.classList.add("modal-prev");
+      modalNext.classList.add("modal-next");
+      modalDots.classList.add("dotM-container");
+      modalImageContainer.innerText = " ";
 
-      //     return (
-      //       ((100 - product.discountPercentage) / 100) *
-      //       product.price
-      //     ).toFixed(2);
-      //   }
-      // }
+      modalDotsForImages();
 
-      function calculateDiscountedPrice() {
-        return (
-          ((100 - product.discountPercentage) / 100) *
-          product.price
-        ).toFixed(2);
+      let modalArr = Array.from(modalDots.childNodes);
+      modalArr[0].classList.add("active");
+
+      function modalPreviousImage() {
+        if (modalIndex === 0) {
+          modalIndex = product.images.length - 1;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[0].classList.remove("active");
+        } else {
+          modalIndex -= 1;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[modalIndex + 1].classList.remove("active");
+        }
       }
+      function modalNextImage() {
+        if (modalIndex === product.images.length - 1) {
+          modalIndex = 0;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[product.images.length - 1].classList.remove("active");
+        } else {
+          modalIndex += 1;
+          modalImage.src = product.images[modalIndex];
+          modalArr[modalIndex].classList.add("active");
+          modalArr[modalIndex - 1].classList.remove("active");
+        }
+      }
+      modalPrev.addEventListener("click", modalPreviousImage);
+      modalNext.addEventListener("click", modalNextImage);
+      function modalDotsForImages() {
+        for (let i = 0; i < product.images.length; i++) {
+          const dotM = document.createElement("span");
+          dotM.classList.add("dot-modal");
+          modalDots.append(dotM);
+          dotM.addEventListener("click", () => {
+            newImage.src = product.images[i];
+            modalArr.forEach((elem) => elem.classList.remove("active"));
+            modalArr[i].classList.add("active");
+          });
+        }
+      }
+
+      // prevModalImage.innerText =
+      modalImage.classList.add("modal-image");
+      priceDetails.classList.add("product-details");
+      modalHeader.classList.add("modal-header");
+      modalFooter.classList.add("modal-footer");
+      modalPrice.classList.add("modal-price");
+      modalCart.classList.add("modal-cart");
+      priceDetails.innerText = " ";
+      modalHeader.innerText = " ";
+      modalFooter.innerText = " ";
+      modalPrice.innerText = " ";
+      modalCart.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
+      modalCart.onclick = function () {
+        updateProductsToArray(prodToCart);
+        console.log(productsInCart);
+      };
+
+      priceDetails.append(
+        createElement("p", " "),
+        createElement(
+          "p",
+          "Price:  " + product.price + "$",
+          "text-decoration: line-through"
+        ),
+        createElement("p", "-" + product.discountPercentage + "%"),
+        createElement(
+          "p",
+          (
+            product.price -
+            (product.price * product.discountPercentage) / 100
+          ).toFixed(2) + " $"
+        )
+      );
+
+      // modalDetails.classList.add('modal-details');
+      modalDetails.setAttribute("class", "modal-details hide");
+      newTextSection.append(modalDetails, openButton);
+
+      modalHeader.append(closeButton, createElement("div", "Product Details"));
+      openButton.classList.add("open-button");
+      openButton.innerText = "View more details";
+      modalFooter.append(modalPrice, modalCart);
+      modalPrice.append(
+        createElement("p", " "),
+        createElement(
+          "p",
+          "Price:  " + product.price + "$",
+          "text-decoration: line-through"
+        ),
+        createElement("p", "-" + product.discountPercentage + "%"),
+        createElement(
+          "p",
+          (
+            product.price -
+            (product.price * product.discountPercentage) / 100
+          ).toFixed(2) + " $"
+        )
+      );
+      closeButton.classList.add("close-button");
+      closeButton.innerText = "x";
+      modalDetails.innerText = "";
+      newPriceBoxSection.append(priceDetails);
+      modalDetails.inWindow = 0;
+      openButton.addEventListener("click", () => {
+        if (modalDetails.classList.contains("hide")) {
+          modalDetails.classList.remove("hide"),
+            openButton.classList.add("hide");
+        }
+      });
+
+      closeButton.addEventListener("click", () => {
+        if (modalDetails.inWindow === 0) {
+          modalDetails.classList.add("hide"),
+            openButton.classList.remove("hide");
+        }
+      });
+
+      modalDetails.append(
+        modalHeader,
+        modalImageContainer,
+        modalDots,
+        createElement("p", product.description),
+        createElement("br"),
+        createElement("p", `In stock:   ${product.stock}` + " left"),
+        createElement("p", `Rating:    ${product.rating}`),
+        modalFooter
+      );
+      modalImageContainer.append(modalPrev, modalImage, modalNext);
+      // task 10 done.
 
       newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
       productsList.appendChild(newArticle);
