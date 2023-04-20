@@ -108,11 +108,7 @@ const checkout = document.createElement("div");
 checkout.setAttribute("class", "checkout");
 checkout.innerText = "Checkout";
 cartWindow.appendChild(checkout);
-//div - view cart
-const viewCart = document.createElement("div");
-viewCart.setAttribute("class", "view-cart");
-viewCart.innerText = "  View-cart";
-cartWindow.appendChild(viewCart);
+
 
 let productsInCart = [];
 
@@ -238,7 +234,6 @@ getData().then((products) => {
       let modalIndex = 0;
       modalImage.src = product.images[modalIndex];
 
-      // newImage.src = product.images[imageIndex];
       modalPrev.innerText = "<";
       modalNext.innerText = ">";
       modalImageContainer.classList.add("modal-container");
@@ -395,6 +390,13 @@ getData().then((products) => {
         updateProductsToArray(prodToCart);
         updateProductsToShoppingCart();
       };
+      
+      
+      checkout.onclick=function(){   //not working
+       let win= window.open('cart.html');
+       
+        //console.log(cartWrapper.innerHTML);
+              }
 
       let prodToCart = {
          name: product.title,
@@ -413,7 +415,7 @@ getData().then((products) => {
            }
          }
          productsInCart.push(prodToCart);
-         updateProductsToShoppingCart();
+        // updateProductsToShoppingCart();
        }
       
        let countTheSumPrice = function () { 
@@ -423,7 +425,7 @@ getData().then((products) => {
         });
         return sum.toFixed(2);
       };
-      
+      let deAfisat='';
         let updateProductsToShoppingCart = function () {  
               if (productsInCart.length > 0) {
           let result = productsInCart.map((product) => {
