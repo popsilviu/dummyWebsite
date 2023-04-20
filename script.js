@@ -274,9 +274,11 @@ getData().then((products) => {
               });
 
           cartWrapper.innerHTML = result.join("");
-            
+          cartWrapper.classList.remove('hide');
           total.innerHTML = "TOTAL: $" + countTheSumPrice();
         } else {
+              cartWrapper.classList.add('hide');
+              cartWrapper.innerHTML = '<h4 class="empty">Your shopping cart is empty</h4>';
               total.innerHTML = "Total : $0.00 ";
             }
       };
@@ -289,11 +291,13 @@ getData().then((products) => {
               for (let i = 0; i < productsInCart.length; i++) {
             if (productsInCart[i].id == product.id) {
                   if (isPlusButton) {
+                    console.log("id produs: ", isPlusButton)
                      productsInCart[i].count += 1;
                     
                     } else if (isMinusButton) {
                 productsInCart[i].count -= 1;
                   }
+                  //updateProductsToArray(productsInCart);
                   updateProductsToShoppingCart();
                 }
                 if (productsInCart[i].count <= 0) {
