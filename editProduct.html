@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Styles/edit.css" />
+    <title>Edit product</title>
+  </head>
+  <body>
+    <h1 class="edit-heading">edit</h1>
+
+    <main>
+      <form class="edit-container">
+        <div class="input-container">
+          <div class="product-title">
+            <label for="productTitle">Title</label>
+            <input type="text" id="productTitle" name="productTitle" />
+          </div>
+
+          <div class="product-price">
+            <label for="productPrice">Price</label>
+            <input type="text" id="productPrice" name="productPrice" />
+          </div>
+
+          <div class="product-discount">
+            <label for="productDiscount">Discount</label>
+            <input type="text" id="productDiscount" name="productDiscount" />
+          </div>
+
+          <div class="product-rating">
+            <label for="productRating">Rating</label>
+            <input
+              type="range"
+              name="productRating"
+              id="productRating"
+              min="0"
+              max="5"
+              step="0.1"
+            />
+            <p class="rating-value"></p>
+          </div>
+
+          <div class="product-stock">
+            <label for="productStock">Stock</label>
+            <input type="text" id="productStock" name="productStock" />
+          </div>
+
+          <div class="product-brand">
+            <label for="productBrand">Brand</label>
+            <input type="text" id="productBrand" name="productBrand" />
+          </div>
+
+          <div class="product-category">
+            <label for="productCategory">Category</label>
+            <input type="text" id="productCategory" name="productCategory" />
+          </div>
+
+          <div class="product-thumbnail">
+            <label for="productThumbnail">Thumbnail</label>
+            <input type="url" id="productThumbnail" name="productThumbnail" />
+          </div>
+
+          <div class="product-images">
+            <label for="productImages">Images</label>
+            <input type="url" id="productImages" name="productImages" />
+          </div>
+        </div>
+
+        <div class="product-description">
+          <label for="productDescription">Description</label>
+          <textarea
+            name="productDescription"
+            id="productDescription"
+            cols="40"
+            rows="10"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="edit-btn">Edit product</button>
+      </form>
+    </main>
+    <script src="Scripts/editProduct.js"></script>
+  </body>
+</html>
