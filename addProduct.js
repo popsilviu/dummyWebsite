@@ -1,4 +1,4 @@
-const slider = document.querySelector('.productRating');
+const slider = document.querySelector('#productRating');
 const value = document.querySelector('.rating-value');
 
 value.innerText = slider.value;

@@ -11,3 +11,10 @@ getData().then((products) => {
     sortProducts();    
   }
 });
+
+function addProducts(){
+  const addButton= document.querySelector(".add-btn");
+  addButton.addEventListener("click",() => (location.href="addProduct.html"))
+}
+
+addProducts();
