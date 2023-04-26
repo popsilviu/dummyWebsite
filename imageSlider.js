@@ -68,4 +68,5 @@ function createImageSlider(product, newImageSection) {
   function productDetails() {
     location.href = `productDetails.html?productId=${product.id}`;
   }
+ 
 }
