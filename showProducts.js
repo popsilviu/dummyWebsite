@@ -61,5 +61,6 @@ function showProducts(products) {
     cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
     cartButton.setAttribute("id", "cart-button-container");
     newArticle.append(cartButton);
+    buyProducts(product);
   });
 }

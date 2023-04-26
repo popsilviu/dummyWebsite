@@ -65,15 +65,16 @@ cartWindow.appendChild(checkout);
 const newImage=document.getElementsByTagName('img');
 const newImageSection=document.getElementsByClassName('image-container');
 
-function buyProducts() {
-    getData().then((product) => {
-      if (product) {
-
+function buyProducts(product) {
+    //getData().then((products) => {
+    //  if (products) {
+        
 //createImageSlider(product, newImageSection);
 
 let productsInCart = [];
 const cartButton=document.getElementById("cart-button-container");
 cartButton.onclick = function () {
+    //createImageSlider(product, newImageSection) ;
     let prodToCart = {
       name: product.title,
       id: product.id,
@@ -170,7 +171,10 @@ cartButton.onclick = function () {
         
         }
        });
-}
-  })
-}
+    }
+// })
+
+//       }
+
+  
 
