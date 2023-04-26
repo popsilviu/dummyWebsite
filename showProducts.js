@@ -178,8 +178,11 @@ function showProducts(products) {
       detailsArr[0].classList.add('price');
     }
 
+    
+
     newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
     productsList.appendChild(newArticle);
+    addComments(newArticle);
 
     // newTextSection.addEventListener('click', productDetails);
 
