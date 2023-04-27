@@ -36,7 +36,6 @@ cartWindow.addEventListener("mouseleave", () => {
   cartWindow.classList.add("hide");
 });
 
-//h2 -
 const titleWindowCart = document.createElement("h2");
 titleWindowCart.innerText = "Shopping Cart";
 cartWindow.appendChild(titleWindowCart);

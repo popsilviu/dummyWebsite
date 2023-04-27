@@ -1,4 +1,5 @@
 let productsInCart = [];
+
 function showProducts(products) {
   products.forEach((product) => {
     function createElement(tag, text) {
@@ -85,7 +86,6 @@ function showProducts(products) {
         }
       }
       productsInCart.push(prodToCart);
-      // updateProductsToShoppingCart();
     }
 
     let countTheSumPrice = function () {
@@ -130,7 +130,6 @@ function showProducts(products) {
     };
 
     cartWrapper.addEventListener("click", (e) => {
-      // Last
       const isPlusButton = e.target.classList.contains(
         `button-plus-${product.id}`,
       );
@@ -141,17 +140,13 @@ function showProducts(products) {
         for (let i = 0; i < productsInCart.length; i++) {
           if (productsInCart[i].id == product.id) {
             if (isPlusButton) {
-              console.log("id produs: ", isPlusButton);
               productsInCart[i].count += 1;
             } else if (isMinusButton) {
               productsInCart[i].count -= 1;
-              console.log("count = ", productsInCart[i].count);
             }
-            //updateProductsToArray(productsInCart);
           }
           if (productsInCart[i].count <= 0) {
             productsInCart.splice(i, 1);
-            console.log(productsInCart.splice(i, 1));
           }
         }
         updateProductsToShoppingCart();
