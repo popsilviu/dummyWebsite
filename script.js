@@ -8,6 +8,7 @@ getData().then((products) => {
     console.log('Lista cu produce: ', products);
     const productsList = document.querySelector('.products-container');
     showProducts(products);
-    sortProducts();    
+    sortProducts();  
+    
   }
 });

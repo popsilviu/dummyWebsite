@@ -50,8 +50,11 @@ function showProducts(products) {
       detailsArr[0].classList.add("price");
     }
 
+    
+
     newArticle.append(newImageSection, newTextSection, newPriceBoxSection);
     productsList.appendChild(newArticle);
+    addComments(newArticle);
 
     const cartButton = document.createElement("button");
     cartButton.classList.add("buy-btn");
