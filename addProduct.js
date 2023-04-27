@@ -28,7 +28,7 @@ function addProduct() {
     const images = inputs.productImages.value;
 
     fetch('http://localhost:3000/products', {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
