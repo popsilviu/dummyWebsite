@@ -1,5 +1,6 @@
 function createImageSlider(product, newImageSection) {
   const newImage = document.createElement('img');
+ 
   const prevButton = document.createElement('button');
   const nextButton = document.createElement('button');
   const dotContainer = document.createElement('div');

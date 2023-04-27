@@ -1,3 +1,10 @@
+getData().then((products) => {
+    
+    if (products) {
+      
+      products.forEach((product) => {
+
+   
 const navbar = document.querySelector(".navbar");
 const cartIcon = document.createElement("div");
 cartIcon.setAttribute("id", "cart-nav-icon-container");
@@ -12,6 +19,7 @@ const cartWindow = document.createElement("div");
 cartWindow.setAttribute("class", "cart-window-container hide");
 cartIcon.appendChild(cartWindow);
 cartWindow.inWindow = 0;
+
 
 cartIcon.addEventListener("mouseover", () => {
   if (cartWindow.classList.contains("hide"))
@@ -54,31 +62,24 @@ const checkout = document.createElement("div");
 checkout.setAttribute("class", "checkout");
 checkout.innerText = "Checkout";
 cartWindow.appendChild(checkout);
-//buy button
-// const modalCart = document.createElement("button");
-// modalCart.classList.add("modal-cart");
-// modalCart.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
-// modalCart.onclick = function () {
-//   updateProductsToArray(prodToCart);
-//   console.log(productsInCart);
-// };
-const newImage=document.getElementsByTagName('img');
-const newImageSection=document.getElementsByClassName('image-container');
 
-function buyProducts(product) {
-    //getData().then((products) => {
-    //  if (products) {
-        
-//createImageSlider(product, newImageSection);
+
 
 let productsInCart = [];
-const cartButton=document.getElementById("cart-button-container");
+const cartButton = document.createElement("button");
+    cartButton.classList.add("buy-btn");
+    cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
+    cartButton.setAttribute("id", "cart-button-container");
+   
+ newArticle.append(cartButton);
+   
+    
 cartButton.onclick = function () {
     //createImageSlider(product, newImageSection) ;
     let prodToCart = {
       name: product.title,
       id: product.id,
-      image: newImage.src,
+      image: product.images[0],
       count: 1,
       price: calculateDiscountedPrice(product),
       unitPrice: product.price,
@@ -171,10 +172,10 @@ cartButton.onclick = function () {
         
         }
        });
+    
+  });
     }
-// })
+});
+ 
 
-//       }
-
-  
 

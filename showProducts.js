@@ -7,12 +7,13 @@ function showProducts(products) {
     }
 
     const productsList = document.querySelector(".products-container");
-    const newArticle = document.createElement("article");
+    var newArticle = document.createElement("article");
     const newImageSection = document.createElement("section");
     const newTextSection = document.createElement("section");
     const newPriceBoxSection = document.createElement("section");
 
     newArticle.setAttribute("id", product.id);
+    
     newImageSection.classList.add("image-container");
     newTextSection.classList.add("text-container");
     newPriceBoxSection.classList.add("price-container");
@@ -56,11 +57,6 @@ function showProducts(products) {
       location.href = `productDetails.html?productId=${product.id}`;
     }
     //buy-button
-    const cartButton = document.createElement("button");
-    cartButton.classList.add("buy-btn");
-    cartButton.innerHTML = `<img id='cart-button' src='https://cdn-icons-png.flaticon.com/512/5465/5465858.png'>`;
-    cartButton.setAttribute("id", "cart-button-container");
-    newArticle.append(cartButton);
-    buyProducts(product);
+    
   });
 }

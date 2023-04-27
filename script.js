@@ -9,6 +9,5 @@ getData().then((products) => {
     const productsList = document.querySelector('.products-container');
     showProducts(products);
     sortProducts(); 
-   
-  }
+      }
 });
