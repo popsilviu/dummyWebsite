@@ -5,9 +5,9 @@ async function getData() {
 
 getData().then((products) => {
   if (products) {
-    console.log('Lista cu produce: ', products);
+    console.log('Lista cu produse: ', products);
     const productsList = document.querySelector('.products-container');
     showProducts(products);
-    sortProducts();    
-  }
+    sortProducts(); 
+      }
 });
